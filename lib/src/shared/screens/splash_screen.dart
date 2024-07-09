@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:ecommerce/src/core/routes/route_constants.dart';
+import 'package:ecommerce/src/shared/providers/auth_provider.dart';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,13 +18,27 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Timer(
-      const Duration(seconds: 1),
-      () => Navigator.pushReplacementNamed(
-        context,
-        RouteConstants.userLoginScreenRoute,
-      ),
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      authProvider.checkUserAuthStatus();
+
+      Timer(
+        const Duration(seconds: 1),
+        () {
+          if (authProvider.isUserLoggedIn) {
+            Navigator.pushReplacementNamed(
+              context,
+              RouteConstants.userDashboardScreenRoute,
+            );
+          } else {
+            Navigator.pushReplacementNamed(
+              context,
+              RouteConstants.userLoginScreenRoute,
+            );
+          }
+        },
+      );
+    });
   }
 
   @override

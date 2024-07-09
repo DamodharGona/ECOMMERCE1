@@ -42,17 +42,18 @@ class MultiAuthWidget extends StatelessWidget {
           children: [
             const Text('Register -'),
             TextButton(
-              onPressed: () {},
-              child: const Text('Admin'),
-            ),
-            const Text('|'),
-            TextButton(
-              onPressed: () {},
+              onPressed: () => navigateTo(
+                context,
+                RouteConstants.userRegisterScreenRoute,
+              ),
               child: const Text('User'),
             ),
             const Text('|'),
             TextButton(
-              onPressed: () {},
+              onPressed: () => navigateTo(
+                context,
+                RouteConstants.merchantRegisterScreenRoute,
+              ),
               child: const Text('Merchant'),
             ),
           ],

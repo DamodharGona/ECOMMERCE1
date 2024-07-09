@@ -1,7 +1,10 @@
+import 'package:ecommerce/src/core/routes/route_constants.dart';
+import 'package:ecommerce/src/shared/providers/auth_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce/src/core/routes/router.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,7 +12,14 @@ void main() async {
   await Firebase.initializeApp();
 
   runApp(
-    const MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -30,6 +40,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       onGenerateRoute: Routes.generateRoute,
+      initialRoute: RouteConstants.initialRoute,
     );
   }
 }
