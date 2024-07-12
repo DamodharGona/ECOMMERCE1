@@ -1,3 +1,4 @@
+import 'package:ecommerce/src/core/service/firebase_service.dart';
 import 'package:ecommerce/src/shared/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,7 +10,6 @@ class FirebaseAuthService {
       FirebaseAuthService._privateConstructor();
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   User? get currentUser => _firebaseAuth.currentUser;
 
@@ -64,11 +64,9 @@ class FirebaseAuthService {
           isMerchant: isMerchant,
         );
 
-        await _firestore
-            .collection(isMerchant ? 'merchant' : 'users')
-            .doc(user.uid)
-            .set(
-          {
+        await FirestoreService.instance.addDocument(
+          collection: isMerchant ? 'merchant' : 'users',
+          data: {
             ...userData.toUserRegisterJson(),
             'createdAt': Timestamp.now(),
           },

@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:ecommerce/src/core/enum/enums.dart';
 import 'package:ecommerce/src/core/routes/route_constants.dart';
+import 'package:ecommerce/src/core/utils/extensions/enum_extension.dart';
 import 'package:ecommerce/src/shared/providers/auth_provider.dart';
+import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,23 +25,42 @@ class _SplashScreenState extends State<SplashScreen> {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       authProvider.checkUserAuthStatus();
 
-      Timer(
-        const Duration(seconds: 1),
-        () {
-          if (authProvider.isUserLoggedIn) {
+      Timer(const Duration(seconds: 1), () async {
+        Enum loggedInUser = await getLoggedInUser();
+
+        if (loggedInUser == CurrentUser.ADMIN) {
+          if (mounted) {
+            Navigator.pushReplacementNamed(
+              context,
+              RouteConstants.adminDashboardScreenRoute,
+            );
+          }
+        } else if (authProvider.isUserLoggedIn) {
+          if (mounted) {
             Navigator.pushReplacementNamed(
               context,
               RouteConstants.userDashboardScreenRoute,
             );
-          } else {
+          }
+        } else {
+          if (mounted) {
             Navigator.pushReplacementNamed(
               context,
               RouteConstants.userLoginScreenRoute,
             );
           }
-        },
-      );
+        }
+      });
     });
+  }
+
+  Future<Enum> getLoggedInUser() async {
+    try {
+      String currentUser = await AppSharedPrefs.instance.getCurrentUser();
+      return currentUser.toEnum(CurrentUser.values);
+    } catch (e) {
+      return CurrentUser.USER;
+    }
   }
 
   @override

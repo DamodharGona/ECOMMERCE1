@@ -1,5 +1,6 @@
 import 'package:ecommerce/src/core/routes/route_constants.dart';
 import 'package:ecommerce/src/shared/providers/auth_provider.dart';
+import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+
+  await AppSharedPrefs.init();
 
   runApp(
     MultiProvider(

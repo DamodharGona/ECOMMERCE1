@@ -13,4 +13,6 @@ class RouteConstants {
   /* ADMIN */
   static const String adminLoginScreenRoute = '/adminLoginScreenRoute';
   static const String adminDashboardScreenRoute = '/adminDashboardScreenRoute';
+  static const String addOrEditCategoryScreenRoute =
+      '/addOrEditCategoryScreenRoute';
 }

@@ -1,6 +1,7 @@
 import 'package:ecommerce/src/core/routes/route_constants.dart';
-import 'package:ecommerce/src/features/admin/auth/screens/admin_login_screen.dart';
-import 'package:ecommerce/src/features/admin/dashboard/admin_dashboard_screen.dart';
+import 'package:ecommerce/src/features/admin/screens/auth/admin_login_screen.dart';
+import 'package:ecommerce/src/features/admin/screens/categories/add_edit_category_screen.dart';
+import 'package:ecommerce/src/features/admin/screens/dashboard/admin_dashboard_screen.dart';
 import 'package:ecommerce/src/features/merchants/auth/screens/merchant_login_screen.dart';
 import 'package:ecommerce/src/features/merchants/auth/screens/merchant_register_screen.dart';
 import 'package:ecommerce/src/features/user/screens/auth/user_login_screen.dart';
@@ -49,6 +50,11 @@ class Routes {
       case RouteConstants.adminDashboardScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const AdminDashBoardScreen(),
+        );
+
+      case RouteConstants.addOrEditCategoryScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const AddEditCategoryScreen(),
         );
 
       /* DEFAULT ROUTES */
