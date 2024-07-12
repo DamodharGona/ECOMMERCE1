@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<Enum> getLoggedInUser() async {
     try {
       String currentUser = await AppSharedPrefs.instance.getCurrentUser();
-      return currentUser.toEnum(CurrentUser.values);
+      return currentUser.stringToEnum(CurrentUser.values);
     } catch (e) {
       return CurrentUser.USER;
     }

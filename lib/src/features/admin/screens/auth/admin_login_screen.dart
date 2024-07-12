@@ -29,8 +29,6 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
           CurrentUser.ADMIN.enumToString(),
         );
 
-        print("step 1: ${CurrentUser.ADMIN.enumToString()}");
-
         Navigator.pushNamedAndRemoveUntil(
           context,
           RouteConstants.adminDashboardScreenRoute,

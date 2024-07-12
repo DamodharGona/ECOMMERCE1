@@ -12,7 +12,7 @@ class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
-  Future<void> addDocument<T>({
+  Future<void> addDocument({
     required String collection,
     required Map<String, dynamic> data,
   }) async {
@@ -33,13 +33,17 @@ class FirestoreService {
     try {
       DocumentSnapshot snapshot =
           await _db.collection(collection).doc(documentId).get();
+
       if (snapshot.exists) {
         // Adding document ID to the data map
         final data = snapshot.data() as Map<String, dynamic>;
         data['id'] = snapshot.id;
 
+        // Wrapping data in a map with the key "data"
+        Map<String, dynamic> wrappedData = {'data': data};
+
         return ApiResponse.fromJson<T, P>(
-          data,
+          wrappedData,
           tFromJson,
           isList: isList,
         );
@@ -47,32 +51,33 @@ class FirestoreService {
         throw Exception('Document does not exist');
       }
     } catch (e) {
-      print('Error getting document: $e');
-      rethrow; // Throw error for handling in UI or upper layers
+      throw Exception('Error getting document: $e');
     }
   }
 
-  Future<List<ApiResponse<T>>> getAllDocuments<T, P>({
+  Future<ApiResponse<T>> getAllDocuments<T, P>({
     required String collection,
     required Function(Map<String, dynamic>) tFromJson,
     required bool isList,
   }) async {
     try {
       QuerySnapshot snapshot = await _db.collection(collection).get();
-      return snapshot.docs.map((doc) {
-        // Adding document ID to the data map
+
+      List<dynamic> apiData = snapshot.docs.map((doc) {
         final data = doc.data() as Map<String, dynamic>;
         data['id'] = doc.id;
-
-        return ApiResponse.fromJson<T, P>(
-          data,
-          tFromJson,
-          isList: isList,
-        );
+        return data;
       }).toList();
+
+      Map<String, dynamic> wrappedData = {'data': apiData};
+
+      return ApiResponse.fromJson<T, P>(
+        wrappedData,
+        tFromJson,
+        isList: isList,
+      );
     } catch (e) {
-      print('Error getting documents: $e');
-      rethrow; // Throw error for handling in UI or upper layers
+      throw Exception('Error getting documents: $e');
     }
   }
 

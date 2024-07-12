@@ -15,4 +15,6 @@ class RouteConstants {
   static const String adminDashboardScreenRoute = '/adminDashboardScreenRoute';
   static const String addOrEditCategoryScreenRoute =
       '/addOrEditCategoryScreenRoute';
+  static const String viewCategoresScreenRoute = '/viewCategoresScreenRoute';
+  static const String viewAllUsersScreenRoute = '/viewAllUsersScreenRoute';
 }

@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/src/core/model/firebase_response_model.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
+import 'package:ecommerce/src/shared/model/category_model.dart';
+import 'package:ecommerce/src/shared/model/user_model.dart';
 
 class AdminService {
   AdminService._privateConstructor();
@@ -30,6 +33,37 @@ class AdminService {
       );
     } catch (e) {
       throw Exception('Error saving to collection: $e');
+    }
+  }
+
+  Future<List<CategoryModel>> fetchAllCategories() async {
+    try {
+      ApiResponse<List<CategoryModel>> categories = await FirestoreService
+          .instance
+          .getAllDocuments<List<CategoryModel>, CategoryModel>(
+        collection: 'categories',
+        tFromJson: CategoryModel.fromJson,
+        isList: true,
+      );
+
+      return categories.data;
+    } catch (e) {
+      return <CategoryModel>[];
+    }
+  }
+
+  Future<List<UserModel>> fetchAllUsers() async {
+    try {
+      ApiResponse<List<UserModel>> users = await FirestoreService.instance
+          .getAllDocuments<List<UserModel>, UserModel>(
+        collection: 'users',
+        tFromJson: UserModel.fromJson,
+        isList: true,
+      );
+
+      return users.data;
+    } catch (e) {
+      return <UserModel>[];
     }
   }
 }

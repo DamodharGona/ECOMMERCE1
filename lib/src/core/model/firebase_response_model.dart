@@ -12,10 +12,10 @@ class ApiResponse<T> extends Equatable {
   }) {
     return ApiResponse<T>(
       data: isList
-          ? (json['results'] as List<dynamic>)
+          ? (json['data'] as List<dynamic>)
               .map((dynamic data) => tFromJson(data) as P)
               .toList()
-          : tFromJson(json['results'] as P),
+          : tFromJson(json['data'] as P),
     );
   }
 

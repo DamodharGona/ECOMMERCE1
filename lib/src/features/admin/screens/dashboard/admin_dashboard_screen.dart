@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:ecommerce/src/core/routes/route_constants.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
+import 'package:ecommerce/src/features/admin/widgets/custom_card_widget.dart';
 import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
 import 'package:flutter/material.dart';
 
@@ -61,21 +62,21 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Merchant's Shop Approval",
                   style: TextStyle(
                     fontSize: 22,
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCard(title: '0', subTitle: 'Pending'),
-                    CustomCard(title: '0', subTitle: 'Approved'),
+                    CustomCardWidget(count: 0, text: 'Pending'),
+                    CustomCardWidget(count: 0, text: 'Approved'),
                   ],
                 ),
               ],
@@ -94,8 +95,15 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCard(title: userCount.toString(), subTitle: 'Users'),
-                    CustomCard(title: '0', subTitle: 'Merchants'),
+                    CustomCardWidget(
+                      count: userCount,
+                      text: 'Users',
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        RouteConstants.viewAllUsersScreenRoute,
+                      ),
+                    ),
+                    const CustomCardWidget(count: 0, text: 'Merchants'),
                   ],
                 ),
               ],
@@ -139,9 +147,13 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
                         ),
                       ),
                     ),
-                    CustomCard(
-                      title: categorisCount.toString(),
-                      subTitle: 'Categories',
+                    CustomCardWidget(
+                      count: categorisCount,
+                      text: 'Categories',
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        RouteConstants.viewCategoresScreenRoute,
+                      ),
                     ),
                   ],
                 ),
@@ -149,37 +161,6 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget CustomCard({
-    required String title,
-    required String subTitle,
-  }) {
-    return Container(
-      width: 200,
-      height: 130,
-      decoration: const BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(fontSize: 50),
-          ),
-          Text(
-            subTitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16),
-          ),
-        ],
       ),
     );
   }
