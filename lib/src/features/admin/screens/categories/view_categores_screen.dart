@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/src/features/admin/service/admin_service.dart';
 import 'package:ecommerce/src/shared/model/category_model.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ViewCategoresScreen extends StatefulWidget {
-  const ViewCategoresScreen({super.key});
+  final Function()? callBack;
+  const ViewCategoresScreen({super.key, this.callBack});
 
   @override
   State<ViewCategoresScreen> createState() => _ViewCategoresScreenState();
@@ -11,6 +14,7 @@ class ViewCategoresScreen extends StatefulWidget {
 
 class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
   List<CategoryModel> categoriesList = [];
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -19,8 +23,9 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
   }
 
   Future<void> fetchData() async {
+    setState(() => isLoading = true);
     categoriesList = await AdminService.instance.fetchAllCategories();
-    setState(() {});
+    setState(() => isLoading = false);
   }
 
   @override
@@ -38,34 +43,72 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: categoriesList.length,
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 150,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            childAspectRatio: 2 / 2,
-          ),
-          itemBuilder: (context, index) {
-            final category = categoriesList[index];
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(category.imageUrl),
+        child: isLoading
+            ? Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 6,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 150,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 2 / 2,
+                  ),
+                  itemBuilder: (context, index) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.grey[300],
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          height: 16,
+                          width: 80,
+                          color: Colors.grey[300],
+                        ),
+                      ],
+                    );
+                  },
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  category.name,
-                  style: const TextStyle(fontSize: 16),
+              )
+            : GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: categoriesList.length,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 150,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 2 / 2,
                 ),
-              ],
-            );
-          },
-        ),
+                itemBuilder: (context, index) {
+                  final category = categoriesList[index];
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: CachedNetworkImage(
+                          imageUrl: category.imageUrl,
+                          height: 75,
+                          width: 75,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        category.name,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  );
+                },
+              ),
       ),
     );
   }

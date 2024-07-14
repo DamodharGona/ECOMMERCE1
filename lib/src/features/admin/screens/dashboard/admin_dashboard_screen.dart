@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:ecommerce/src/core/routes/route_constants.dart';
+import 'package:ecommerce/src/core/routes/router.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
 import 'package:ecommerce/src/features/admin/widgets/custom_card_widget.dart';
 import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
@@ -12,9 +13,11 @@ class AdminDashBoardScreen extends StatefulWidget {
   State<AdminDashBoardScreen> createState() => _AdminDashBoardScreenState();
 }
 
-class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
+class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
+    with RouteAware {
   int categorisCount = 0;
   int userCount = 0;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -22,7 +25,31 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
     getCategoriesCount();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Subscribe to the RouteObserver
+    routeObserver.subscribe(
+      this,
+      ModalRoute.of(context)! as PageRoute<dynamic>,
+    );
+  }
+
+  @override
+  void dispose() {
+    // Unsubscribe from the RouteObserver
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    // This method is called when the current route is popped back to
+    getCategoriesCount();
+  }
+
   Future<void> getCategoriesCount() async {
+    setState(() => isLoading = true);
     categorisCount = await FirestoreService.instance.getDocumentCount(
       'categories',
     );
@@ -31,7 +58,7 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
       'users',
     );
 
-    setState(() {});
+    setState(() => isLoading = false);
   }
 
   @override
@@ -62,21 +89,29 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Merchant's Shop Approval",
                   style: TextStyle(
                     fontSize: 22,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCardWidget(count: 0, text: 'Pending'),
-                    CustomCardWidget(count: 0, text: 'Approved'),
+                    CustomCardWidget(
+                      isLoading: isLoading,
+                      count: 0,
+                      text: 'Pending',
+                    ),
+                    CustomCardWidget(
+                      isLoading: isLoading,
+                      count: 0,
+                      text: 'Approved',
+                    ),
                   ],
                 ),
               ],
@@ -96,6 +131,7 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomCardWidget(
+                      isLoading: isLoading,
                       count: userCount,
                       text: 'Users',
                       onTap: () => Navigator.pushNamed(
@@ -103,7 +139,11 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
                         RouteConstants.viewAllUsersScreenRoute,
                       ),
                     ),
-                    const CustomCardWidget(count: 0, text: 'Merchants'),
+                    CustomCardWidget(
+                      isLoading: isLoading,
+                      count: 0,
+                      text: 'Merchants',
+                    ),
                   ],
                 ),
               ],
@@ -148,6 +188,7 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen> {
                       ),
                     ),
                     CustomCardWidget(
+                      isLoading: isLoading,
                       count: categorisCount,
                       text: 'Categories',
                       onTap: () => Navigator.pushNamed(

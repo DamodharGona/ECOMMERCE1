@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       onGenerateRoute: Routes.generateRoute,
+      navigatorObservers: [routeObserver],
       initialRoute: RouteConstants.initialRoute,
     );
   }

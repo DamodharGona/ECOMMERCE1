@@ -12,6 +12,8 @@ import 'package:ecommerce/src/features/user/screens/dashboard/user_dashboard_scr
 import 'package:ecommerce/src/shared/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
