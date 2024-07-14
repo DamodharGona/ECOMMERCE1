@@ -4,8 +4,9 @@ import 'package:ecommerce/src/features/admin/screens/categories/add_edit_categor
 import 'package:ecommerce/src/features/admin/screens/categories/view_categores_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/dashboard/admin_dashboard_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_users_screen.dart';
-import 'package:ecommerce/src/features/merchants/auth/screens/merchant_login_screen.dart';
-import 'package:ecommerce/src/features/merchants/auth/screens/merchant_register_screen.dart';
+import 'package:ecommerce/src/features/merchants/screens/auth/merchant_login_screen.dart';
+import 'package:ecommerce/src/features/merchants/screens/auth/merchant_register_screen.dart';
+import 'package:ecommerce/src/features/merchants/screens/dashboard/merchant_dashboard_screen.dart';
 import 'package:ecommerce/src/features/user/screens/auth/user_login_screen.dart';
 import 'package:ecommerce/src/features/user/screens/auth/user_register_screen.dart';
 import 'package:ecommerce/src/features/user/screens/dashboard/user_dashboard_screen.dart';
@@ -40,9 +41,15 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => const MerchantLoginScreen(),
         );
+
       case RouteConstants.merchantRegisterScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const MerchantRegisterScreen(),
+        );
+
+      case RouteConstants.merchantDashboardScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const MerchantDashboardScreen(),
         );
 
       /* ADMIN ROUTES */

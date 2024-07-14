@@ -9,6 +9,8 @@ class RouteConstants {
   static const String merchantLoginScreenRoute = '/merchantLoginScreenRoute';
   static const String merchantRegisterScreenRoute =
       '/merchantRegisterScreenRoute';
+  static const String merchantDashboardScreenRoute =
+      '/merchantDashboardScreenRoute';
 
   /* ADMIN */
   static const String adminLoginScreenRoute = '/adminLoginScreenRoute';

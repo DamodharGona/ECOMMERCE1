@@ -15,9 +15,12 @@ class FirestoreService {
   Future<void> addDocument({
     required String collection,
     required Map<String, dynamic> data,
+    String documentId = '',
   }) async {
     try {
-      await _db.collection(collection).add(data);
+      documentId.isNotEmpty
+          ? _db.collection(collection).doc(documentId).set(data)
+          : _db.collection(collection).add(data);
     } catch (e) {
       print('Error adding document: $e');
       rethrow; // Throw error for handling in UI or upper layers

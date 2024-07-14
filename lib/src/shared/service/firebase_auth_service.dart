@@ -65,7 +65,8 @@ class FirebaseAuthService {
         );
 
         await FirestoreService.instance.addDocument(
-          collection: isMerchant ? 'merchant' : 'users',
+          collection: isMerchant ? 'merchants' : 'users',
+          documentId: user.uid,
           data: {
             ...userData.toUserRegisterJson(),
             'createdAt': Timestamp.now(),
