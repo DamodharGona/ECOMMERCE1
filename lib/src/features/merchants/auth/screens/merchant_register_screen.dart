@@ -23,68 +23,74 @@ class _MerchantRegisterScreenState extends State<MerchantRegisterScreen> {
     final storeAddressController = TextEditingController();
 
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'MERCHANT REGISTER PAGE',
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'MERCHANT REGISTER PAGE',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                const OrWidget(dividerText: 'PERSONAL DETAILS'),
+                const SizedBox(height: 30),
+                MyTextFieldWidget(
+                  controller: nameController,
+                  text: 'Enter Name',
+                  prefixIcon: null,
+                ),
+                const SizedBox(height: 25),
+                MyTextFieldWidget(
+                  controller: emailController,
+                  text: 'Enter Email Address',
+                  prefixIcon: null,
+                ),
+                const SizedBox(height: 25),
+                MyTextFieldWidget(
+                  controller: passwordController,
+                  text: 'Enter Password',
+                  prefixIcon: null,
+                ),
+                const SizedBox(height: 25),
+                MyTextFieldWidget(
+                  controller: confirmPasswordController,
+                  text: 'Enter Confirm Password',
+                  prefixIcon: null,
+                ),
+                const SizedBox(height: 30),
+                const OrWidget(dividerText: 'STORE'),
+                const SizedBox(height: 30),
+                MyTextFieldWidget(
+                  controller: storeNameController,
+                  text: 'Enter Store Name',
+                  prefixIcon: null,
+                ),
+                const SizedBox(height: 25),
+                MyTextFieldWidget(
+                  controller: storeAddressController,
+                  text: 'Enter Store Address',
+                  prefixIcon: null,
+                  isAddress: true,
+                ),
+                const SizedBox(height: 50),
+                MyButtonWidget(
+                  text: 'Register',
+                  onPressed: () {},
+                ),
+                const SizedBox(height: 15),
+                const MultiAuthWidget(),
+              ],
             ),
           ),
-          const SizedBox(height: 30),
-          const OrWidget(dividerText: 'PERSONAL DETAILS'),
-          const SizedBox(height: 30),
-          MyTextFieldWidget(
-            controller: nameController,
-            text: 'Enter Name',
-            prefixIcon: null,
-          ),
-          const SizedBox(height: 25),
-          MyTextFieldWidget(
-            controller: emailController,
-            text: 'Enter Email Address',
-            prefixIcon: null,
-          ),
-          const SizedBox(height: 25),
-          MyTextFieldWidget(
-            controller: passwordController,
-            text: 'Enter Password',
-            prefixIcon: null,
-          ),
-          const SizedBox(height: 25),
-          MyTextFieldWidget(
-            controller: confirmPasswordController,
-            text: 'Enter Confirm Password',
-            prefixIcon: null,
-          ),
-          const SizedBox(height: 30),
-          const OrWidget(dividerText: 'STORE'),
-          const SizedBox(height: 30),
-          MyTextFieldWidget(
-            controller: storeNameController,
-            text: 'Enter Store Name',
-            prefixIcon: null,
-          ),
-          const SizedBox(height: 25),
-          MyTextFieldWidget(
-            controller: storeAddressController,
-            text: 'Enter Store Address',
-            prefixIcon: null,
-          ),
-          const SizedBox(height: 50),
-          MyButtonWidget(
-            text: 'Register',
-            onPressed: () {},
-          ),
-          const SizedBox(height: 15),
-          const MultiAuthWidget(),
-        ],
+        ),
       ),
-    ));
+    );
   }
 }

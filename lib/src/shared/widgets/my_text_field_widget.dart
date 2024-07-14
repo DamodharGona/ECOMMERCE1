@@ -4,12 +4,14 @@ class MyTextFieldWidget extends StatelessWidget {
   final String text;
   final Widget? prefixIcon;
   final TextEditingController? controller;
+  final bool isAddress;
 
   const MyTextFieldWidget({
     super.key,
     required this.text,
     required this.prefixIcon,
     required this.controller,
+    this.isAddress = false,
   });
 
   @override
@@ -33,6 +35,7 @@ class MyTextFieldWidget extends StatelessWidget {
             fontSize: 14,
           ),
         ),
+        maxLines: isAddress ? 3 : null,
       ),
     );
   }
