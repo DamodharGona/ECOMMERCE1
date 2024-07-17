@@ -1,14 +1,18 @@
-class UserModel {
+import 'package:equatable/equatable.dart';
+
+class UserModel extends Equatable {
   final String id;
   final String name;
   final String emailId;
   final bool isMerchant;
+  final bool isSuperUser;
 
   const UserModel({
     this.id = '',
     this.name = '',
     this.emailId = '',
     this.isMerchant = false,
+    this.isSuperUser = false,
   });
 
   Map<String, dynamic> toUserRegisterJson() {
@@ -28,4 +32,7 @@ class UserModel {
       isMerchant: map['isMerchant'] ?? false,
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, emailId, isMerchant];
 }
