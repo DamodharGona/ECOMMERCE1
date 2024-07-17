@@ -5,12 +5,14 @@ class UserModel extends Equatable {
   final String name;
   final String emailId;
   final bool isMerchant;
+  final bool isSuperUser;
 
   const UserModel({
     this.id = '',
     this.name = '',
     this.emailId = '',
     this.isMerchant = false,
+    this.isSuperUser = false,
   });
 
   Map<String, dynamic> toUserRegisterJson() {
