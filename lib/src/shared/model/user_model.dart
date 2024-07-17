@@ -4,15 +4,13 @@ class UserModel extends Equatable {
   final String id;
   final String name;
   final String emailId;
-  final bool isMerchantId;
-  final bool isSuperUser;
+  final bool isMerchant;
 
   const UserModel({
     this.id = '',
     this.name = '',
     this.emailId = '',
-    this.isMerchantId = false,
-    this.isSuperUser = false,
+    this.isMerchant = false,
   });
 
   Map<String, dynamic> toUserRegisterJson() {
@@ -20,7 +18,7 @@ class UserModel extends Equatable {
       'id': id,
       'name': name,
       'emailId': emailId,
-      'isMerchantId': isMerchantId,
+      'isMerchant': isMerchant,
     };
   }
 
@@ -29,10 +27,10 @@ class UserModel extends Equatable {
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       emailId: map['emailId'] ?? '',
-      isMerchantId: map['isMerchantId'] ?? false,
+      isMerchant: map['isMerchant'] ?? false,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, emailId, isMerchantId];
+  List<Object?> get props => [id, name, emailId, isMerchant];
 }

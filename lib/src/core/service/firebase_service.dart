@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/src/core/model/firebase_response_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 
-class FirestoreService {
-  FirestoreService._privateConstructor();
-  static final FirestoreService instance =
-      FirestoreService._privateConstructor();
+class FirebaseService {
+  FirebaseService._privateConstructor();
+  static final FirebaseService instance = FirebaseService._privateConstructor();
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
@@ -22,7 +22,9 @@ class FirestoreService {
           ? _db.collection(collection).doc(documentId).set(data)
           : _db.collection(collection).add(data);
     } catch (e) {
-      print('Error adding document: $e');
+      if (kDebugMode) {
+        print('Error adding document: $e');
+      }
       rethrow; // Throw error for handling in UI or upper layers
     }
   }
@@ -94,7 +96,9 @@ class FirestoreService {
       String downloadUrl = await snap.ref.getDownloadURL();
       return downloadUrl;
     } catch (e) {
-      print('Error uploading file: $e');
+      if (kDebugMode) {
+        print('Error uploading file: $e');
+      }
       rethrow;
     }
   }

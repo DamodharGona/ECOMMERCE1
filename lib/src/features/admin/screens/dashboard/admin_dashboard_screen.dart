@@ -17,6 +17,7 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
     with RouteAware {
   int categorisCount = 0;
   int userCount = 0;
+  int merchantCount = 0;
   bool isLoading = false;
 
   @override
@@ -50,12 +51,16 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
 
   Future<void> getCategoriesCount() async {
     setState(() => isLoading = true);
-    categorisCount = await FirestoreService.instance.getDocumentCount(
+    categorisCount = await FirebaseService.instance.getDocumentCount(
       'categories',
     );
 
-    userCount = await FirestoreService.instance.getDocumentCount(
+    userCount = await FirebaseService.instance.getDocumentCount(
       'users',
+    );
+
+    merchantCount = await FirebaseService.instance.getDocumentCount(
+      'merchants',
     );
 
     setState(() => isLoading = false);
@@ -102,15 +107,20 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCardWidget(
-                      isLoading: isLoading,
-                      count: 0,
-                      text: 'Pending',
+                    Expanded(
+                      child: CustomCardWidget(
+                        isLoading: isLoading,
+                        count: 0,
+                        text: 'Pending',
+                      ),
                     ),
-                    CustomCardWidget(
-                      isLoading: isLoading,
-                      count: 0,
-                      text: 'Approved',
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: CustomCardWidget(
+                        isLoading: isLoading,
+                        count: 0,
+                        text: 'Approved',
+                      ),
                     ),
                   ],
                 ),
@@ -130,19 +140,28 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCardWidget(
-                      isLoading: isLoading,
-                      count: userCount,
-                      text: 'Users',
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        RouteConstants.viewAllUsersScreenRoute,
+                    Expanded(
+                      child: CustomCardWidget(
+                        isLoading: isLoading,
+                        count: userCount,
+                        text: 'Users',
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          RouteConstants.viewAllUsersScreenRoute,
+                        ),
                       ),
                     ),
-                    CustomCardWidget(
-                      isLoading: isLoading,
-                      count: 0,
-                      text: 'Merchants',
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: CustomCardWidget(
+                        isLoading: isLoading,
+                        count: merchantCount,
+                        text: 'Merchants',
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          RouteConstants.viewAllMerchantsScreenRoute,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -162,38 +181,45 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        RouteConstants.addOrEditCategoryScreenRoute,
-                      ),
-                      child: DottedBorder(
-                        borderType: BorderType.RRect,
-                        dashPattern: const [5, 10],
-                        radius: const Radius.circular(12),
-                        child: const SizedBox(
-                          width: 195,
-                          height: 120,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'New Category',
-                                style: TextStyle(fontSize: 20),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          RouteConstants.addOrEditCategoryScreenRoute,
+                        ),
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          dashPattern: const [5, 10],
+                          radius: const Radius.circular(12),
+                          child: const SizedBox(
+                            height: 120,
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'New Category',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    CustomCardWidget(
-                      isLoading: isLoading,
-                      count: categorisCount,
-                      text: 'Categories',
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        RouteConstants.viewCategoresScreenRoute,
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: CustomCardWidget(
+                        isLoading: isLoading,
+                        count: categorisCount,
+                        text: 'Categories',
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          RouteConstants.viewCategoresScreenRoute,
+                        ),
                       ),
                     ),
                   ],

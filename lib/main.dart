@@ -1,3 +1,4 @@
+import 'package:ecommerce/firebase_options.dart';
 import 'package:ecommerce/src/core/routes/route_constants.dart';
 import 'package:ecommerce/src/shared/providers/auth_provider.dart';
 import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await AppSharedPrefs.init();
 

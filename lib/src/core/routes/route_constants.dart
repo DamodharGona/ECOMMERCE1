@@ -19,4 +19,6 @@ class RouteConstants {
       '/addOrEditCategoryScreenRoute';
   static const String viewCategoresScreenRoute = '/viewCategoresScreenRoute';
   static const String viewAllUsersScreenRoute = '/viewAllUsersScreenRoute';
+  static const String viewAllMerchantsScreenRoute =
+      '/viewAllMerchantsScreenRoute';
 }
