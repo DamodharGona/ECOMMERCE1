@@ -4,14 +4,14 @@ class UserModel extends Equatable {
   final String id;
   final String name;
   final String emailId;
-  final bool isMerchant;
+  final bool isMerchantId;
   final bool isSuperUser;
 
   const UserModel({
     this.id = '',
     this.name = '',
     this.emailId = '',
-    this.isMerchant = false,
+    this.isMerchantId = false,
     this.isSuperUser = false,
   });
 
@@ -20,7 +20,7 @@ class UserModel extends Equatable {
       'id': id,
       'name': name,
       'emailId': emailId,
-      'isMerchant': isMerchant,
+      'isMerchantId': isMerchantId,
     };
   }
 
@@ -29,10 +29,10 @@ class UserModel extends Equatable {
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       emailId: map['emailId'] ?? '',
-      isMerchant: map['isMerchant'] ?? false,
+      isMerchantId: map['isMerchantId'] ?? false,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, emailId, isMerchant];
+  List<Object?> get props => [id, name, emailId, isMerchantId];
 }
