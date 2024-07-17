@@ -3,6 +3,7 @@ import 'package:ecommerce/src/features/admin/screens/auth/admin_login_screen.dar
 import 'package:ecommerce/src/features/admin/screens/categories/add_edit_category_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/categories/view_categores_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/dashboard/admin_dashboard_screen.dart';
+import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_merchant_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_users_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/auth/merchant_login_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/auth/merchant_register_screen.dart';
@@ -76,6 +77,11 @@ class Routes {
       case RouteConstants.viewAllUsersScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const ViewAllUsersScreen(),
+        );
+
+      case RouteConstants.viewAllMerchantsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const ViewAllMerchantsScreen(),
         );
 
       /* DEFAULT ROUTES */

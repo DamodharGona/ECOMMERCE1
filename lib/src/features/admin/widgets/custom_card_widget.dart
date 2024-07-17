@@ -35,8 +35,7 @@ class CustomCardWidget extends StatelessWidget {
               ),
             )
           : Container(
-              width: 200,
-              height: 130,
+              height: 120,
               decoration: const BoxDecoration(
                 color: Colors.amber,
                 borderRadius: BorderRadius.all(

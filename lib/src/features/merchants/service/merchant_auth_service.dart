@@ -25,7 +25,7 @@ class MerchantAuthService {
         isMerchant: true,
       );
 
-      await FirestoreService.instance.addDocument(
+      await FirebaseService.instance.addDocument(
         collection: 'stores',
         data: {
           "ownerId": FirebaseAuthService.instance.currentUser!.uid,

@@ -17,12 +17,12 @@ class AdminService {
     required File file,
   }) async {
     try {
-      String imageUrl = await FirestoreService.instance.storeFileToFirebase(
+      String imageUrl = await FirebaseService.instance.storeFileToFirebase(
         file: file,
         ref: ref,
       );
 
-      await FirestoreService.instance.addDocument(
+      await FirebaseService.instance.addDocument(
         collection: collectionName,
         data: {
           "name": categoryName,
@@ -38,7 +38,7 @@ class AdminService {
 
   Future<List<CategoryModel>> fetchAllCategories() async {
     try {
-      ApiResponse<List<CategoryModel>> categories = await FirestoreService
+      ApiResponse<List<CategoryModel>> categories = await FirebaseService
           .instance
           .getAllDocuments<List<CategoryModel>, CategoryModel>(
         collection: 'categories',
@@ -54,9 +54,24 @@ class AdminService {
 
   Future<List<UserModel>> fetchAllUsers() async {
     try {
-      ApiResponse<List<UserModel>> users = await FirestoreService.instance
+      ApiResponse<List<UserModel>> users = await FirebaseService.instance
           .getAllDocuments<List<UserModel>, UserModel>(
         collection: 'users',
+        tFromJson: UserModel.fromJson,
+        isList: true,
+      );
+
+      return users.data;
+    } catch (e) {
+      return <UserModel>[];
+    }
+  }
+
+  Future<List<UserModel>> fetchAllMerchants() async {
+    try {
+      ApiResponse<List<UserModel>> users = await FirebaseService.instance
+          .getAllDocuments<List<UserModel>, UserModel>(
+        collection: 'merchants',
         tFromJson: UserModel.fromJson,
         isList: true,
       );
