@@ -80,7 +80,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
         confirmPasswordController.text.trim().isNotEmpty &&
         emailController.text.trim().isNotEmpty &&
         nameController.text.trim().isNotEmpty) {
-      if (!passwordController.text.isEqual(confirmPasswordController.text)) {
+      if (!passwordController.text.isEqualTo(confirmPasswordController.text)) {
         showSnackBar(
           context: context,
           content: 'Password & Confirm Password do not match',

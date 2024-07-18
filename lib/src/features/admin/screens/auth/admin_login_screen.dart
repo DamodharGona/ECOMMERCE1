@@ -23,8 +23,8 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   void userLogin() {
     if (emailController.text.trim().isNotEmpty &&
         passwordController.text.trim().isNotEmpty) {
-      if (emailController.text.isEqual('admin@gmail.com') &&
-          passwordController.text.isEqual('Pass@123')) {
+      if (emailController.text.isEqualTo('admin@gmail.com') &&
+          passwordController.text.isEqualTo('Pass@123')) {
         AppSharedPrefs.instance.setCurrentUser(
           CurrentUser.ADMIN.enumToString(),
         );
