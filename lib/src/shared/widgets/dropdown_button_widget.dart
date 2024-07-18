@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:ecommerce/src/shared/model/dropdown_model.dart';
 import 'package:flutter/material.dart';
+
+import 'package:ecommerce/src/shared/model/dropdown_model.dart';
 
 class DropdownButtonWidget extends StatelessWidget {
   final DropdownModel? selectedState;

@@ -1,14 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:ecommerce/src/core/enum/enums.dart';
 import 'package:ecommerce/src/core/routes/route_constants.dart';
 import 'package:ecommerce/src/core/utils/extensions/enum_extension.dart';
 import 'package:ecommerce/src/shared/providers/auth_provider.dart';
 import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
-import 'package:flutter/foundation.dart';
-
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,5 +1,6 @@
-import 'package:ecommerce/src/core/routes/route_constants.dart';
 import 'package:flutter/material.dart';
+
+import 'package:ecommerce/src/core/routes/route_constants.dart';
 
 class MultiAuthWidget extends StatelessWidget {
   const MultiAuthWidget({super.key});

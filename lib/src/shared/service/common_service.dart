@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
+
 import 'package:ecommerce/src/core/model/firebase_response_model.dart';
 import 'package:ecommerce/src/shared/model/dropdown_model.dart';
-import 'package:flutter/services.dart';
 
 class CommonService {
   CommonService._privateConstructor();

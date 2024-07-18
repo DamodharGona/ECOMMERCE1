@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:ecommerce/src/core/utils/extensions/string_extensions.dart';
 import 'package:ecommerce/src/shared/widgets/my_text_field_widget.dart';
 import 'package:ecommerce/src/shared/widgets/password_validation_widget.dart';
-import 'package:flutter/material.dart';
 
 class RegistrationWidget extends StatelessWidget {
   final TextEditingController nameController;

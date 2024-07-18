@@ -1,4 +1,3 @@
-import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce/src/core/enum/enums.dart';
@@ -9,6 +8,7 @@ import 'package:ecommerce/src/core/utils/extensions/string_extensions.dart';
 import 'package:ecommerce/src/core/utils/utils.dart';
 import 'package:ecommerce/src/features/merchants/service/merchant_auth_service.dart';
 import 'package:ecommerce/src/shared/model/dropdown_model.dart';
+import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
 import 'package:ecommerce/src/shared/service/common_service.dart';
 import 'package:ecommerce/src/shared/widgets/dropdown_button_widget.dart';

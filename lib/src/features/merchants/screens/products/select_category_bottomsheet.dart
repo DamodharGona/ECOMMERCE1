@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce/src/features/admin/service/admin_service.dart';
-import 'package:ecommerce/src/shared/model/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'package:ecommerce/src/features/admin/service/admin_service.dart';
+import 'package:ecommerce/src/shared/model/category_model.dart';
 
 class SelectCategoryBottomsheet extends StatefulWidget {
   final Function(CategoryModel category)? onSelect;

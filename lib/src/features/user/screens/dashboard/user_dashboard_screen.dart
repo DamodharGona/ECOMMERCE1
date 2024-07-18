@@ -1,7 +1,8 @@
-import 'package:ecommerce/src/core/routes/route_constants.dart';
-import 'package:ecommerce/src/shared/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:ecommerce/src/core/routes/route_constants.dart';
+import 'package:ecommerce/src/shared/providers/auth_provider.dart';
 
 class UserDashboardScreen extends StatelessWidget {
   const UserDashboardScreen({super.key});

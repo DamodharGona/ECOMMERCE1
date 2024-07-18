@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
 import 'package:ecommerce/src/features/merchants/screens/dashboard/merchant_dashboard_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/orders/merchant_orders_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/products/merchant_product_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class MerchantBottomNavbar extends StatefulWidget {
   const MerchantBottomNavbar({Key? key}) : super(key: key);

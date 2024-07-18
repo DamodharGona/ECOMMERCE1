@@ -1,5 +1,6 @@
-import 'package:ecommerce/src/core/utils/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
+
+import 'package:ecommerce/src/core/utils/extensions/string_extensions.dart';
 
 class PasswordValidationWidget extends StatelessWidget {
   final String password;

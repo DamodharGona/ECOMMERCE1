@@ -1,5 +1,6 @@
-import 'package:ecommerce/src/shared/service/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
+
+import 'package:ecommerce/src/shared/service/firebase_auth_service.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool _isUserLoggedIn = false;

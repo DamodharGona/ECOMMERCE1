@@ -1,5 +1,6 @@
-import 'package:ecommerce/src/core/utils/constants/local_data_constants.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
+
+import 'package:ecommerce/src/core/utils/constants/local_data_constants.dart';
 
 class AppSharedPrefs {
   static late SecureSharedPref _preferences;
