@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
+import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:ecommerce/src/shared/service/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class MerchantAuthService {
     required String password,
     required String storeName,
     required String storeAddress,
+    required Store storeData,
   }) async {
     try {
       await FirebaseAuthService.instance.createUserWithEmailAndPassword(
@@ -25,17 +27,16 @@ class MerchantAuthService {
         isMerchant: true,
       );
 
+      final store = storeData.copyWith(
+        ownerId: FirebaseAuthService.instance.currentUser!.uid,
+        createdAt: Timestamp.now().toString(),
+        verifiedAt: 'NA',
+        verifiedBy: 'NA',
+      );
+
       await FirebaseService.instance.addDocument(
         collection: 'stores',
-        data: {
-          "ownerId": FirebaseAuthService.instance.currentUser!.uid,
-          "name": storeName,
-          "address": storeAddress,
-          "isVerified": false,
-          "createdAt": Timestamp.now(),
-          "verifiedAt": "NA",
-          "verifiedBy": "NA",
-        },
+        data: store.toJson(),
       );
     } catch (e) {
       throw Exception("Failed To Register Merchant");
