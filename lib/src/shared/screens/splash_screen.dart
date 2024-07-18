@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
       return RouteConstants.adminDashboardScreenRoute;
     } else if (isUserLoggedIn) {
       if (loggedInUser == CurrentUser.MERCHANT) {
-        return RouteConstants.merchantDashboardScreenRoute;
+        return RouteConstants.merchantBottomNavBarScreenRoute;
       } else {
         return RouteConstants.userDashboardScreenRoute;
       }

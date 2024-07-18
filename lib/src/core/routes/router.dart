@@ -7,7 +7,10 @@ import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_al
 import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_users_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/auth/merchant_login_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/auth/merchant_register_screen.dart';
+import 'package:ecommerce/src/features/merchants/screens/dashboard/merchant_bottom_navbar.dart';
 import 'package:ecommerce/src/features/merchants/screens/dashboard/merchant_dashboard_screen.dart';
+import 'package:ecommerce/src/features/merchants/screens/orders/merchant_orders_screen.dart';
+import 'package:ecommerce/src/features/merchants/screens/products/merchant_product_screen.dart';
 import 'package:ecommerce/src/features/user/screens/auth/user_login_screen.dart';
 import 'package:ecommerce/src/features/user/screens/auth/user_register_screen.dart';
 import 'package:ecommerce/src/features/user/screens/dashboard/user_dashboard_screen.dart';
@@ -51,6 +54,21 @@ class Routes {
       case RouteConstants.merchantDashboardScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const MerchantDashboardScreen(),
+        );
+
+      case RouteConstants.merchantBottomNavBarScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const MerchantBottomNavbar(),
+        );
+
+      case RouteConstants.merchantProductsScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const MerchantProductScreen(),
+        );
+
+      case RouteConstants.merchantOrdersScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const MerchantOrdersScreen(),
         );
 
       /* ADMIN ROUTES */

@@ -64,8 +64,6 @@ class _MerchantRegisterScreenState extends State<MerchantRegisterScreen> {
         confirmPasswordController.text.trim().isNotEmpty &&
         storeNameController.text.trim().isNotEmpty &&
         storeAddress1Controller.text.trim().isNotEmpty &&
-        storeAddress2Controller.text.trim().isNotEmpty &&
-        storeAddress3Controller.text.trim().isNotEmpty &&
         storePinCodeController.text.trim().isNotEmpty &&
         storeCityOrTownController.text.trim().isNotEmpty &&
         _selectedState != null) {
@@ -116,7 +114,7 @@ class _MerchantRegisterScreenState extends State<MerchantRegisterScreen> {
           if (mounted) {
             Navigator.pushNamedAndRemoveUntil(
               context,
-              RouteConstants.merchantDashboardScreenRoute,
+              RouteConstants.merchantBottomNavBarScreenRoute,
               (route) => false,
             );
           }
@@ -180,13 +178,13 @@ class _MerchantRegisterScreenState extends State<MerchantRegisterScreen> {
                 const SizedBox(height: 25),
                 MyTextFieldWidget(
                   controller: storeAddress2Controller,
-                  text: 'Area, Street, Sector, Village',
+                  text: 'Area, Street, Sector, Village (Optional)',
                   prefixIcon: null,
                 ),
                 const SizedBox(height: 25),
                 MyTextFieldWidget(
                   controller: storeAddress3Controller,
-                  text: 'Landmark',
+                  text: 'Landmark (Optional)',
                   prefixIcon: null,
                 ),
                 const SizedBox(height: 25),
@@ -195,7 +193,7 @@ class _MerchantRegisterScreenState extends State<MerchantRegisterScreen> {
                     Expanded(
                       child: MyTextFieldWidget(
                         controller: storePinCodeController,
-                        text: 'Pin Code',
+                        text: 'PinCode',
                         prefixIcon: null,
                       ),
                     ),

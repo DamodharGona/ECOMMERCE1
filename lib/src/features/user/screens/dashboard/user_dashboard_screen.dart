@@ -23,7 +23,7 @@ class UserDashboardScreen extends StatelessWidget {
             },
             icon: const Icon(
               Icons.power_settings_new_rounded,
-              size: 40,
+              size: 30,
             ),
           )
         ],

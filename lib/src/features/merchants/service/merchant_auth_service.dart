@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
 import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:ecommerce/src/shared/service/firebase_auth_service.dart';
@@ -29,7 +28,7 @@ class MerchantAuthService {
 
       final store = storeData.copyWith(
         ownerId: FirebaseAuthService.instance.currentUser!.uid,
-        createdAt: Timestamp.now().toString(),
+        createdAt: DateTime.now().toIso8601String(),
         verifiedAt: 'NA',
         verifiedBy: 'NA',
       );
