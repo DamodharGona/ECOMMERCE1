@@ -10,6 +10,7 @@ import 'package:ecommerce/src/features/merchants/screens/auth/merchant_register_
 import 'package:ecommerce/src/features/merchants/screens/dashboard/merchant_bottom_navbar.dart';
 import 'package:ecommerce/src/features/merchants/screens/dashboard/merchant_dashboard_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/orders/merchant_orders_screen.dart';
+import 'package:ecommerce/src/features/merchants/screens/products/add_edit_product_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/products/merchant_product_screen.dart';
 import 'package:ecommerce/src/features/user/screens/auth/user_login_screen.dart';
 import 'package:ecommerce/src/features/user/screens/auth/user_register_screen.dart';
@@ -69,6 +70,11 @@ class Routes {
       case RouteConstants.merchantOrdersScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const MerchantOrdersScreen(),
+        );
+
+      case RouteConstants.addEditProductScreenRoute:
+        return MaterialPageRoute(
+          builder: (_) => const AddEditProductScreen(),
         );
 
       /* ADMIN ROUTES */
