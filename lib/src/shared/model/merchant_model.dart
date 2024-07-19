@@ -3,21 +3,35 @@ import 'package:equatable/equatable.dart';
 class MerchantModel {
   final String id;
   final String name;
-  final String emalId;
+  final String emailId;
   final Store store;
 
   const MerchantModel({
     this.id = '',
     this.name = '',
-    this.emalId = '',
+    this.emailId = '',
     this.store = const Store(),
   });
+
+  MerchantModel copyWith({
+    String? id,
+    String? name,
+    String? emailId,
+    Store? store,
+  }) {
+    return MerchantModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      emailId: emailId ?? this.emailId,
+      store: store ?? this.store,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'emalId': emalId,
+      'emailId': emailId,
       'store': store.toJson(),
     };
   }
@@ -26,7 +40,7 @@ class MerchantModel {
     return MerchantModel(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
-      emalId: map['emalId'] ?? '',
+      emailId: map['emailId'] ?? '',
       store: map['store'] != null
           ? Store.fromJson(map['store'] as Map<String, dynamic>)
           : const Store(),

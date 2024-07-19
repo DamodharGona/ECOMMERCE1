@@ -15,7 +15,7 @@ class ApiResponse<T> extends Equatable {
           ? (json['data'] as List<dynamic>)
               .map((dynamic data) => tFromJson(data) as P)
               .toList()
-          : tFromJson(json['data'] as P),
+          : tFromJson(json['data'] as Map<String, dynamic>),
     );
   }
 

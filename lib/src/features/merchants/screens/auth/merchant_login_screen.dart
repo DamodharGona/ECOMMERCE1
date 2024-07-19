@@ -1,3 +1,10 @@
+import 'package:ecommerce/src/core/enum/enums.dart';
+import 'package:ecommerce/src/core/routes/route_constants.dart';
+import 'package:ecommerce/src/core/utils/extensions/enum_extension.dart';
+import 'package:ecommerce/src/core/utils/extensions/my_button_extension.dart';
+import 'package:ecommerce/src/core/utils/utils.dart';
+import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
+import 'package:ecommerce/src/shared/service/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce/src/shared/widgets/multi_auth_widget.dart';
@@ -16,7 +23,42 @@ class _MerchantLoginScreenState extends State<MerchantLoginScreen> {
 
   TextEditingController passwordController = TextEditingController();
 
-  void userLogin() {}
+  bool isLoading = false;
+
+  void userLogin() async {
+    if (emailController.text.trim().isNotEmpty &&
+        passwordController.text.trim().isNotEmpty) {
+      try {
+        setState(() => isLoading = true);
+
+        await FirebaseAuthService.instance.signInWithEmailAndPassword(
+          context: context,
+          email: emailController.text,
+          password: passwordController.text,
+        );
+
+        setState(() => isLoading = false);
+
+        AppSharedPrefs.instance
+            .setCurrentUser(CurrentUser.MERCHANT.enumToString());
+
+        if (mounted) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            RouteConstants.merchantBottomNavBarScreenRoute,
+            (route) => false,
+          );
+        }
+      } catch (e) {
+        setState(() => isLoading = false);
+        if (mounted) {
+          showSnackBar(context: context, content: e.toString());
+        }
+      }
+    } else {
+      showSnackBar(context: context, content: 'Required All Fields');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +92,7 @@ class _MerchantLoginScreenState extends State<MerchantLoginScreen> {
             MyButtonWidget(
               text: 'Login',
               onPressed: userLogin,
-            ),
+            ).withLoading(isLoading),
             const SizedBox(height: 15),
             const MultiAuthWidget(),
           ],

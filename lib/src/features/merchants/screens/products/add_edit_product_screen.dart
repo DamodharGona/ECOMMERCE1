@@ -21,6 +21,10 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
   CategoryModel selectedCategory = const CategoryModel();
   File? productPhotoFile;
 
+  final specificationController = TextEditingController();
+
+  List<String> specificationsList = [];
+
   void openBottomSheet() {
     showModalBottomSheet(
       context: context,
@@ -130,10 +134,91 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                 controller: TextEditingController(),
               ),
               const SizedBox(height: 20),
-              MyTextFieldWidget(
-                text: 'Specification',
-                isAddress: true,
-                controller: TextEditingController(),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: specificationController,
+                            decoration: InputDecoration(
+                              hintText: 'Enter Sepecifications',
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 20,
+                              ),
+                              contentPadding: const EdgeInsets.only(left: 10),
+                            ),
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            specificationsList
+                                .add(specificationController.text);
+                            specificationController.clear();
+                            setState(() {});
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(40, 40),
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: Colors.indigoAccent,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Icon(Icons.add, size: 30),
+                        ),
+                      ],
+                    ),
+                    specificationsList.isNotEmpty
+                        ? const SizedBox(height: 20)
+                        : const SizedBox(),
+                    ...specificationsList
+                        .map(
+                          (item) => Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      item,
+                                      maxLines: 4,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      specificationsList.remove(item);
+                                      setState(() {});
+                                    },
+                                    icon: const Icon(Icons.close),
+                                  ),
+                                ],
+                              ),
+                              const Divider(),
+                            ],
+                          ),
+                        )
+                        .toList()
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               MyTextFieldWidget(
@@ -142,10 +227,13 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
               ),
               const SizedBox(height: 20),
               ListTile(
-                title: const Text('Is Out Of Stock'),
+                title: const Text(
+                  'Is Out Of Stock',
+                  style: TextStyle(fontSize: 20),
+                ),
                 contentPadding: EdgeInsets.zero,
                 trailing: CupertinoSwitch(
-                  value: true,
+                  value: false,
                   onChanged: (value) {},
                 ),
               ),

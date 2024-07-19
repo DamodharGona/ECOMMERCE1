@@ -1,10 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
+
 import 'package:ecommerce/src/core/routes/route_constants.dart';
 import 'package:ecommerce/src/core/routes/router.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
 import 'package:ecommerce/src/features/admin/widgets/custom_card_widget.dart';
-import 'package:ecommerce/src/shared/service/app_shared_pref.dart';
-import 'package:flutter/material.dart';
+import 'package:ecommerce/src/shared/widgets/log_out_widget.dart';
 
 class AdminDashBoardScreen extends StatefulWidget {
   const AdminDashBoardScreen({super.key});
@@ -74,19 +75,9 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
           'Admin',
           style: TextStyle(fontSize: 26),
         ),
-        actions: [
-          const SizedBox(width: 20),
-          IconButton(
-            onPressed: () {
-              AppSharedPrefs.instance.setCurrentUser('');
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                RouteConstants.adminLoginScreenRoute,
-                (route) => false,
-              );
-            },
-            icon: const Icon(Icons.power_settings_new_outlined, size: 30),
-          )
+        actions: const [
+          LogOutWidget(),
+          SizedBox(width: 20),
         ],
       ),
       body: Padding(

@@ -33,7 +33,6 @@ class FirebaseService {
     required String collection,
     required String documentId,
     required Function(Map<String, dynamic>) tFromJson,
-    required bool isList,
   }) async {
     try {
       DocumentSnapshot snapshot =
@@ -50,7 +49,7 @@ class FirebaseService {
         return ApiResponse.fromJson<T, P>(
           wrappedData,
           tFromJson,
-          isList: isList,
+          isList: false,
         );
       } else {
         throw Exception('Document does not exist');
@@ -75,6 +74,38 @@ class FirebaseService {
       }).toList();
 
       Map<String, dynamic> wrappedData = {'data': apiData};
+
+      return ApiResponse.fromJson<T, P>(
+        wrappedData,
+        tFromJson,
+        isList: isList,
+      );
+    } catch (e) {
+      throw Exception('Error getting documents: $e');
+    }
+  }
+
+  Future<ApiResponse<T>> customQuery<T, P>({
+    required Function(Map<String, dynamic>) tFromJson,
+    required bool isList,
+    required QuerySnapshot snapshot,
+  }) async {
+    try {
+      List<dynamic> apiData = [];
+      Map<String, dynamic> jsonData = {};
+
+      if (isList) {
+        apiData = snapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          data['id'] = doc.id;
+          return data;
+        }).toList();
+      } else {
+        jsonData = snapshot.docs.first.data() as Map<String, dynamic>;
+        jsonData['id'] = snapshot.docs.first.id;
+      }
+
+      Map<String, dynamic> wrappedData = {'data': isList ? apiData : jsonData};
 
       return ApiResponse.fromJson<T, P>(
         wrappedData,
