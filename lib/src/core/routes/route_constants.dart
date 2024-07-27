@@ -27,4 +27,5 @@ class RouteConstants {
   static const String viewAllUsersScreenRoute = '/viewAllUsersScreenRoute';
   static const String viewAllMerchantsScreenRoute =
       '/viewAllMerchantsScreenRoute';
+  static const String shopsScreenRoute = '/shopsScreenRoute';
 }

@@ -36,6 +36,15 @@ class MerchantModel {
     };
   }
 
+  Map<String, dynamic> toSharedPrefJson() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'emailId': emailId,
+      'store': store.toSharedPrefJson(),
+    };
+  }
+
   factory MerchantModel.fromJson(Map<String, dynamic> map) {
     return MerchantModel(
       id: map['id'] ?? '',
@@ -128,6 +137,24 @@ class Store extends Equatable {
     };
   }
 
+  Map<String, dynamic> toSharedPrefJson() {
+    return <String, dynamic>{
+      'id': id,
+      'ownerId': ownerId,
+      'name': name,
+      'address1': address1,
+      'address2': address2,
+      'address3': address3,
+      'pinCode': pinCode,
+      'townOrCity': townOrCity,
+      'stateId': stateId,
+      'isStoreVerified': isStoreVerified,
+      'createdAt': createdAt,
+      'verifiedBy': verifiedBy,
+      'verifiedAt': verifiedAt,
+    };
+  }
+
   factory Store.fromJson(Map<String, dynamic> map) {
     return Store(
       id: map['id'] ?? '',
@@ -139,7 +166,7 @@ class Store extends Equatable {
       pinCode: map['pinCode'] ?? 000000,
       townOrCity: map['townOrCity'] ?? '',
       stateId: map['stateId'] ?? '',
-      isStoreVerified: map['isVerified'] ?? false,
+      isStoreVerified: map['isStoreVerified'] ?? false,
     );
   }
 

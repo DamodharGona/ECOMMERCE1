@@ -45,19 +45,30 @@ class _MerchantBottomNavbarState extends State<MerchantBottomNavbar> {
 
   Future<void> fetchDataFromSharedPrefs() async {
     setState(() => isLoading = true);
+
     hasDataFromSharedPrefs =
         await AppSharedPrefs.instance.getMerchantApprovalStatus();
+
     if (hasDataFromSharedPrefs != null) {
       showLayout = hasDataFromSharedPrefs!;
+
+      merchantStore = await AppSharedPrefs.instance.getMerchantData();
+
+      if (merchantStore.store.id.isEmpty || merchantStore.id.isEmpty) {
+        merchantStore = await MerchantService.instance.fetchStoreDetails();
+      }
     } else {
       await fetchMerchantStatus();
     }
+
     setState(() => isLoading = false);
   }
 
   Future<void> fetchMerchantStatus() async {
     merchantStore = await MerchantService.instance.fetchStoreDetails();
     showLayout = merchantStore.store.isStoreVerified;
+
+    AppSharedPrefs.instance.setMerchantData(merchantModel: merchantStore);
 
     AppSharedPrefs.instance.setMerchantApprovalStatus(
       status: merchantStore.store.isStoreVerified,

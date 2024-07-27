@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:ecommerce/src/features/admin/service/admin_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce/src/core/routes/route_constants.dart';
@@ -20,11 +21,13 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
   int userCount = 0;
   int merchantCount = 0;
   bool isLoading = false;
+  int approvedShops = 0;
+  int pendingShops = 0;
 
   @override
   void initState() {
     super.initState();
-    getCategoriesCount();
+    fetchDashboardData();
   }
 
   @override
@@ -47,10 +50,10 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
   @override
   void didPopNext() {
     // This method is called when the current route is popped back to
-    getCategoriesCount();
+    fetchDashboardData();
   }
 
-  Future<void> getCategoriesCount() async {
+  Future<void> fetchDashboardData() async {
     setState(() => isLoading = true);
     categorisCount = await FirebaseService.instance.getDocumentCount(
       'categories',
@@ -63,6 +66,12 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
     merchantCount = await FirebaseService.instance.getDocumentCount(
       'merchants',
     );
+
+    Map<String, dynamic> shopsdata =
+        await AdminService.instance.fetchShopsStatus();
+
+    approvedShops = shopsdata['approved'];
+    pendingShops = shopsdata['pending'];
 
     setState(() => isLoading = false);
   }
@@ -101,16 +110,26 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
                     Expanded(
                       child: CustomCardWidget(
                         isLoading: isLoading,
-                        count: 0,
+                        count: pendingShops,
                         text: 'Pending',
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          RouteConstants.shopsScreenRoute,
+                          arguments: false,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 20),
                     Expanded(
                       child: CustomCardWidget(
                         isLoading: isLoading,
-                        count: 0,
+                        count: approvedShops,
                         text: 'Approved',
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          RouteConstants.shopsScreenRoute,
+                          arguments: true,
+                        ),
                       ),
                     ),
                   ],

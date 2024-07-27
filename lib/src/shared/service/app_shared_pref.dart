@@ -1,3 +1,4 @@
+import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:secure_shared_preferences/secure_shared_pref.dart';
 import 'package:ecommerce/src/core/utils/constants/local_data_constants.dart';
 
@@ -29,7 +30,6 @@ class AppSharedPrefs {
       );
       return response ?? '';
     } catch (e) {
-      print('Error getting current user: $e');
       return '';
     }
   }
@@ -50,10 +50,8 @@ class AppSharedPrefs {
         LocalDataConstants.shopApprovalStatus,
         isEncrypted: enableEncryption,
       );
-      print('Merchant approval status retrieved: $response');
       return response;
     } catch (e) {
-      print('Error getting merchant approval status: $e');
       return null;
     }
   }
@@ -65,6 +63,28 @@ class AppSharedPrefs {
       status,
       isEncrypted: enableEncryption,
     );
-    print('Merchant approval status set to: $status');
+  }
+
+  // Get Merchant Data
+  Future<MerchantModel> getMerchantData() async {
+    try {
+      Map<dynamic, dynamic>? response = await _preferences.getMap(
+        LocalDataConstants.merchantData,
+        isEncrypted: enableEncryption,
+      );
+
+      return MerchantModel.fromJson(response as Map<String, dynamic>);
+    } catch (e) {
+      return const MerchantModel();
+    }
+  }
+
+  // Set merchant approval status
+  void setMerchantData({required MerchantModel merchantModel}) {
+    _preferences.putMap(
+      LocalDataConstants.merchantData,
+      merchantModel.toSharedPrefJson(),
+      isEncrypted: enableEncryption,
+    );
   }
 }

@@ -41,6 +41,7 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
             context: context,
             content: 'Category Created Successfully',
           );
+          Navigator.pop(context);
         }
       } catch (e) {
         if (mounted) {

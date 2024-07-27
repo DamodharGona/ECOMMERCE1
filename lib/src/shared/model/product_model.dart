@@ -7,7 +7,7 @@ class ProductModel {
   final double price;
   final String description;
   final List<String> specifications;
-  final String imageUrl;
+  final List<String> imageUrls;
   final bool isOutOfStock;
   final double discountPercent;
 
@@ -20,14 +20,13 @@ class ProductModel {
     this.price = 0,
     this.description = '',
     this.specifications = const <String>[],
-    this.imageUrl = '',
+    this.imageUrls = const <String>[],
     this.isOutOfStock = false,
     this.discountPercent = 0,
   });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'id': id,
       'categoryId': categoryId,
       'shopId': shopId,
       'merchantId': merchantId,
@@ -35,7 +34,7 @@ class ProductModel {
       'price': price,
       'description': description,
       'specifications': specifications,
-      'imageUrl': imageUrl,
+      'imageUrls': imageUrls,
       'isOutOfStock': isOutOfStock,
       'discountPercent': discountPercent,
     };
@@ -51,9 +50,11 @@ class ProductModel {
       price: map['price'] ?? 0,
       description: map['description'] ?? '',
       specifications: map['specifications'] != null
-          ? List<String>.from((map['specifications'] as List<String>))
+          ? List<String>.from((map['specifications']))
           : const <String>[],
-      imageUrl: map['imageUrl'] ?? '',
+      imageUrls: map['imageUrls'] != null
+          ? List<String>.from((map['imageUrls']))
+          : const <String>[],
       isOutOfStock: map['isOutOfStock'] ?? false,
       discountPercent: map['discountPercent'] ?? 0,
     );

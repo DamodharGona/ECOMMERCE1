@@ -1,5 +1,5 @@
 import 'package:ecommerce/src/features/admin/service/admin_service.dart';
-import 'package:ecommerce/src/shared/model/user_model.dart';
+import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:flutter/material.dart';
 
 class ViewAllMerchantsScreen extends StatefulWidget {
@@ -10,7 +10,7 @@ class ViewAllMerchantsScreen extends StatefulWidget {
 }
 
 class _ViewAllMerchantsScreenState extends State<ViewAllMerchantsScreen> {
-  List<UserModel> merchantsList = [];
+  List<MerchantModel> merchantsList = [];
 
   @override
   void initState() {

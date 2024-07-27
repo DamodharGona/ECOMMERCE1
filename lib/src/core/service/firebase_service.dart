@@ -1,9 +1,11 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/src/core/model/firebase_response_model.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+import 'package:ecommerce/src/core/model/firebase_response_model.dart';
 
 class FirebaseService {
   FirebaseService._privateConstructor();
@@ -85,6 +87,18 @@ class FirebaseService {
     }
   }
 
+  Future<void> updateDocument({
+    required String collection,
+    required String documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      await _db.collection(collection).doc(documentId).update(data);
+    } catch (e) {
+      throw Exception('Error updating document: $e');
+    }
+  }
+
   Future<ApiResponse<T>> customQuery<T, P>({
     required Function(Map<String, dynamic>) tFromJson,
     required bool isList,
@@ -112,7 +126,8 @@ class FirebaseService {
         tFromJson,
         isList: isList,
       );
-    } catch (e) {
+    } catch (e, stack) {
+      print("e: $e, stack: $stack");
       throw Exception('Error getting documents: $e');
     }
   }

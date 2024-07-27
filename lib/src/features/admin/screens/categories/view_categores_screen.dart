@@ -103,6 +103,7 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
                       const SizedBox(height: 8),
                       Text(
                         category.name,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],

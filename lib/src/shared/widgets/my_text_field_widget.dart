@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyTextFieldWidget extends StatelessWidget {
   final String text;
@@ -6,7 +7,11 @@ class MyTextFieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final TextEditingController? controller;
   final bool isAddress;
+  final bool isNumeric;
+  final bool isDecimal;
   final Function(String)? onChanged;
+  final int maxLength;
+  final TextInputType keyboardType;
 
   const MyTextFieldWidget({
     super.key,
@@ -15,8 +20,26 @@ class MyTextFieldWidget extends StatelessWidget {
     this.suffixIcon,
     required this.controller,
     this.isAddress = false,
+    this.isNumeric = false,
+    this.isDecimal = false,
     this.onChanged,
+    this.maxLength = 200,
+    this.keyboardType = TextInputType.text,
   });
+
+  List<TextInputFormatter> _getInputFormatters() {
+    List<TextInputFormatter> formatters = [];
+
+    if (isNumeric) {
+      formatters.add(FilteringTextInputFormatter.digitsOnly);
+    }
+
+    if (isDecimal) {
+      formatters.add(FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')));
+    }
+
+    return formatters;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +62,13 @@ class MyTextFieldWidget extends StatelessWidget {
             fontSize: 15,
           ),
           suffixIcon: suffixIcon,
+          counterText: '',
         ),
+        inputFormatters: _getInputFormatters(),
         maxLines: isAddress ? 3 : null,
+        maxLength: maxLength,
         onChanged: onChanged,
+        keyboardType: keyboardType,
       ),
     );
   }

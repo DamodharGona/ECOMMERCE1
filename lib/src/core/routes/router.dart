@@ -3,6 +3,7 @@ import 'package:ecommerce/src/features/admin/screens/auth/admin_login_screen.dar
 import 'package:ecommerce/src/features/admin/screens/categories/add_edit_category_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/categories/view_categores_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/dashboard/admin_dashboard_screen.dart';
+import 'package:ecommerce/src/features/admin/screens/merchant_shops/shops_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_merchant_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_users_screen.dart';
 import 'package:ecommerce/src/features/merchants/screens/auth/merchant_login_screen.dart';
@@ -106,6 +107,13 @@ class Routes {
       case RouteConstants.viewAllMerchantsScreenRoute:
         return MaterialPageRoute(
           builder: (_) => const ViewAllMerchantsScreen(),
+        );
+
+      case RouteConstants.shopsScreenRoute:
+        final isApprovalScreen = settings.arguments as bool;
+
+        return MaterialPageRoute(
+          builder: (_) => ShopsScreen(isApprovalScreen: isApprovalScreen),
         );
 
       /* DEFAULT ROUTES */
