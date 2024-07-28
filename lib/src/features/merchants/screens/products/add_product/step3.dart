@@ -56,6 +56,7 @@ class Step3 extends StatelessWidget {
             onPressed: () {
               if (specificationController.text.isNotEmpty) {
                 specificationsList.add(specificationController.text);
+                specificationController.clear();
                 (context as Element).markNeedsBuild();
               }
             },

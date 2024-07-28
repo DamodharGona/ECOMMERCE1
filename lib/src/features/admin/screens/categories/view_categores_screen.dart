@@ -60,7 +60,7 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 6,
+                  itemCount: 3 * 10,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 150,
                     mainAxisSpacing: 10,

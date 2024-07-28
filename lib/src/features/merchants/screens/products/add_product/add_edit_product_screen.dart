@@ -21,21 +21,25 @@ class AddEditProductScreen extends StatefulWidget {
 }
 
 class _AddEditProductScreenState extends State<AddEditProductScreen> {
+  /* Common */
+  int activeStep = 0;
+  bool isLoading = false;
+
+  /* Step 1 */
   CategoryModel selectedCategory = const CategoryModel();
+  CategoryModel selectedBrand = const CategoryModel();
+
+  /* Step 2 */
   List<File> productPhotosList = [];
   File? thumbnailFile;
 
-  int activeStep = 1;
-
+  /* Step 3 */
   final productNameController = TextEditingController();
   final productPriceController = TextEditingController();
   final productDescriptionController = TextEditingController();
   final specificationController = TextEditingController();
-  final discountPercentController = TextEditingController();
-
+  final discountPercentController = TextEditingController(text: '0.0');
   bool isOutOfStock = false;
-  bool isLoading = false;
-
   List<String> specificationsList = [];
 
   @override
@@ -71,25 +75,33 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
     setState(() {});
   }
 
-  bool get isButtonEnabled =>
+  bool get isStep1NextButtonEnabled =>
+      selectedBrand.id.isNotEmpty && selectedCategory.id.isNotEmpty;
+
+  bool get isStep1CancelButtonEnabled =>
+      selectedBrand.id.isNotEmpty || selectedCategory.id.isNotEmpty;
+
+  bool get isStep2NextButtonEnabled =>
+      productPhotosList.isNotEmpty && thumbnailFile != null;
+
+  bool get isStep2CancelButtonEnabled =>
+      productPhotosList.isNotEmpty || thumbnailFile != null;
+
+  bool get isStep3NextButtonEnabled =>
       productNameController.text.trim().isNotEmpty &&
       productPriceController.text.trim().isNotEmpty &&
       productDescriptionController.text.trim().isNotEmpty &&
       specificationsList.isNotEmpty &&
-      discountPercentController.text.trim().isNotEmpty &&
-      productPhotosList.isNotEmpty &&
-      selectedCategory.id.isNotEmpty;
+      discountPercentController.text.trim().isNotEmpty;
 
-  bool get isCancelButtonEnabled =>
+  bool get isStep3CancelButtonEnabled =>
       productNameController.text.trim().isNotEmpty ||
       productPriceController.text.trim().isNotEmpty ||
       productDescriptionController.text.trim().isNotEmpty ||
       specificationsList.isNotEmpty ||
-      discountPercentController.text.trim().isNotEmpty ||
-      productPhotosList.isNotEmpty ||
-      selectedCategory.id.isNotEmpty;
+      discountPercentController.text.trim().isNotEmpty;
 
-  void openBottomSheet() {
+  void openBottomSheet({bool isBrand = false}) {
     showModalBottomSheet(
       context: context,
       scrollControlDisabledMaxHeightRatio: 1,
@@ -98,7 +110,15 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
         return SizedBox(
           height: MediaQuery.sizeOf(context).height * 0.94,
           child: SelectCategoryBottomsheet(
-            onSelect: (category) => setState(() => selectedCategory = category),
+            onSelect: (category) {
+              if (isBrand) {
+                selectedBrand = category;
+              } else {
+                selectedCategory = category;
+              }
+              setState(() {});
+            },
+            isBrands: isBrand,
           ),
         );
       },
@@ -119,7 +139,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
   }
 
   void uploadProduct() async {
-    if (isButtonEnabled) {
+    if (isStep3NextButtonEnabled) {
       try {
         setState(() => isLoading = true);
         await MerchantService.instance.uploadProduct(
@@ -133,6 +153,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
           discountPercent: double.parse(discountPercentController.text),
           isOutOfStock: isOutOfStock,
           categoryId: selectedCategory.id,
+          brandId: selectedBrand.id,
         );
 
         if (mounted) {
@@ -155,14 +176,21 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
   }
 
   void clearAll() {
-    productNameController.clear();
-    productPriceController.clear();
-    productDescriptionController.clear();
-    specificationsList.clear();
-    specificationController.clear();
-    discountPercentController.clear();
-    productPhotosList = [];
-    selectedCategory = const CategoryModel();
+    if (activeStep == 0) {
+      selectedCategory = const CategoryModel();
+      selectedBrand = const CategoryModel();
+    } else if (activeStep == 1) {
+      productPhotosList = [];
+      thumbnailFile = null;
+    } else {
+      productNameController.clear();
+      productPriceController.clear();
+      productDescriptionController.clear();
+      specificationsList.clear();
+      specificationController.clear();
+      discountPercentController.clear();
+      isOutOfStock = false;
+    }
     setState(() {});
   }
 
@@ -185,7 +213,10 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                 visible: activeStep == 0,
                 child: Step1(
                   selectedCategory: selectedCategory,
-                  openBottomSheet: openBottomSheet,
+                  selectedBrand: selectedBrand,
+                  openBottomSheet: (isBrand) => openBottomSheet(
+                    isBrand: isBrand,
+                  ),
                 ),
               ),
               Visibility(
@@ -207,6 +238,8 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                   discountPercentController: discountPercentController,
                   specificationsList: specificationsList,
                   isOutOfStock: isOutOfStock,
+                  onChanged: (_) =>
+                      setState(() => isOutOfStock = !isOutOfStock),
                 ),
               ),
             ],
@@ -222,7 +255,33 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
       elevation: 0,
       actions: [
         Visibility(
-          visible: isCancelButtonEnabled,
+          visible: activeStep > 0,
+          child: ElevatedButton(
+            onPressed: () => setState(() => activeStep--),
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.zero,
+              minimumSize: const Size(60, 35),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text(
+              'Prev',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Visibility(
+          visible: activeStep == 0
+              ? isStep1CancelButtonEnabled
+              : activeStep == 1
+                  ? isStep2CancelButtonEnabled
+                  : activeStep == 2
+                      ? isStep3CancelButtonEnabled
+                      : false,
           child: ElevatedButton(
             onPressed: clearAll,
             style: ElevatedButton.styleFrom(
@@ -242,7 +301,21 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
         ),
         const SizedBox(width: 10),
         ElevatedButton(
-          onPressed: !isButtonEnabled ? null : uploadProduct,
+          onPressed: activeStep == 0 && isStep1NextButtonEnabled
+              ? () {
+                  if (isStep1NextButtonEnabled && activeStep < 2) {
+                    setState(() => activeStep++);
+                  }
+                }
+              : activeStep == 1 && isStep1NextButtonEnabled
+                  ? () {
+                      if (isStep1NextButtonEnabled && activeStep < 2) {
+                        setState(() => activeStep++);
+                      }
+                    }
+                  : activeStep == 2 && isStep1NextButtonEnabled
+                      ? uploadProduct
+                      : null,
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
             minimumSize: const Size(60, 35),
@@ -252,11 +325,11 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
             backgroundColor: Colors.indigoAccent,
             foregroundColor: Colors.white,
           ),
-          child: const Text(
-            'Save',
-            style: TextStyle(fontSize: 18),
+          child: Text(
+            activeStep == 2 ? 'Save' : 'Next',
+            style: const TextStyle(fontSize: 18),
           ),
-        ).withLoading(isLoading),
+        ).withLoading(true),
         const SizedBox(width: 20),
       ],
     );

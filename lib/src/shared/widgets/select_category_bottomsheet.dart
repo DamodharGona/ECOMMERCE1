@@ -8,8 +8,13 @@ import 'package:ecommerce/src/shared/service/common_service.dart';
 
 class SelectCategoryBottomsheet extends StatefulWidget {
   final Function(CategoryModel category)? onSelect;
+  final bool isBrands;
 
-  const SelectCategoryBottomsheet({super.key, this.onSelect});
+  const SelectCategoryBottomsheet({
+    super.key,
+    this.onSelect,
+    this.isBrands = false,
+  });
 
   @override
   State<SelectCategoryBottomsheet> createState() =>
@@ -31,8 +36,8 @@ class _SelectCategoryBottomsheetState extends State<SelectCategoryBottomsheet> {
 
   Future<void> fetchData() async {
     setState(() => isLoading = true);
-    categoriesList =
-        await CommonService.instance.fetchAllCategoriesOrBrands(false);
+    categoriesList = await CommonService.instance
+        .fetchAllCategoriesOrBrands(widget.isBrands);
     categoriesListCopy = categoriesList;
     setState(() => isLoading = false);
   }
