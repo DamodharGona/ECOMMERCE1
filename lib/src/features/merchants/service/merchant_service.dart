@@ -60,12 +60,13 @@ class MerchantService {
 
       List<String> imageUrls = [];
 
-      for (final image in productImages) {
+      for (int i = 0; i < productImages.length; i++) {
+        final image = productImages[i];
+        final imageRef = '$ref/$i';
         final imageUrl = await FirebaseService.instance.storeFileToFirebase(
-          ref: ref,
+          ref: imageRef,
           file: image,
         );
-
         imageUrls.add(imageUrl);
       }
 

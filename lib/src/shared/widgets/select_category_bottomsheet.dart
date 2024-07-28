@@ -1,9 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'package:ecommerce/src/features/admin/service/admin_service.dart';
 import 'package:ecommerce/src/shared/model/category_model.dart';
+import 'package:ecommerce/src/shared/service/common_service.dart';
 
 class SelectCategoryBottomsheet extends StatefulWidget {
   final Function(CategoryModel category)? onSelect;
@@ -30,7 +31,8 @@ class _SelectCategoryBottomsheetState extends State<SelectCategoryBottomsheet> {
 
   Future<void> fetchData() async {
     setState(() => isLoading = true);
-    categoriesList = await AdminService.instance.fetchAllCategories();
+    categoriesList =
+        await CommonService.instance.fetchAllCategoriesOrBrands(false);
     categoriesListCopy = categoriesList;
     setState(() => isLoading = false);
   }

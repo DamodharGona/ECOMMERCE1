@@ -1,10 +1,11 @@
-import 'package:dotted_border/dotted_border.dart';
-import 'package:ecommerce/src/features/admin/service/admin_service.dart';
 import 'package:flutter/material.dart';
+
+import 'package:dotted_border/dotted_border.dart';
 
 import 'package:ecommerce/src/core/routes/route_constants.dart';
 import 'package:ecommerce/src/core/routes/router.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
+import 'package:ecommerce/src/features/admin/service/admin_service.dart';
 import 'package:ecommerce/src/features/admin/widgets/custom_card_widget.dart';
 import 'package:ecommerce/src/shared/widgets/log_out_widget.dart';
 
@@ -18,6 +19,7 @@ class AdminDashBoardScreen extends StatefulWidget {
 class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
     with RouteAware {
   int categorisCount = 0;
+  int brandCount = 0;
   int userCount = 0;
   int merchantCount = 0;
   bool isLoading = false;
@@ -65,6 +67,10 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
 
     merchantCount = await FirebaseService.instance.getDocumentCount(
       'merchants',
+    );
+
+    brandCount = await FirebaseService.instance.getDocumentCount(
+      'brands',
     );
 
     Map<String, dynamic> shopsdata =
@@ -178,67 +184,78 @@ class _AdminDashBoardScreenState extends State<AdminDashBoardScreen>
               ],
             ),
             const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Categories",
-                  style: TextStyle(
-                    fontSize: 22,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          RouteConstants.addOrEditCategoryScreenRoute,
-                        ),
-                        child: DottedBorder(
-                          borderType: BorderType.RRect,
-                          dashPattern: const [5, 10],
-                          radius: const Radius.circular(12),
-                          child: const SizedBox(
-                            height: 120,
-                            child: Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'New Category',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: CustomCardWidget(
-                        isLoading: isLoading,
-                        count: categorisCount,
-                        text: 'Categories',
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          RouteConstants.viewCategoresScreenRoute,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            categoiresAndBrands(context: context),
+            const SizedBox(height: 20),
+            categoiresAndBrands(context: context, isBrand: true),
           ],
         ),
       ),
+    );
+  }
+
+  Column categoiresAndBrands({
+    required BuildContext context,
+    bool isBrand = false,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          isBrand ? "Brand" : "Categories",
+          style: const TextStyle(
+            fontSize: 22,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  RouteConstants.addOrEditCategoryScreenRoute,
+                  arguments: isBrand,
+                ),
+                child: DottedBorder(
+                  borderType: BorderType.RRect,
+                  dashPattern: const [5, 10],
+                  radius: const Radius.circular(12),
+                  child: SizedBox(
+                    height: 120,
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "New ${isBrand ? 'Brand' : 'Category'}",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: CustomCardWidget(
+                isLoading: isLoading,
+                count: isBrand ? brandCount : categorisCount,
+                text: isBrand ? 'Brands' : 'Categories',
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  RouteConstants.viewCategoresScreenRoute,
+                  arguments: isBrand,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

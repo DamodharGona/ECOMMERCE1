@@ -1,12 +1,20 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce/src/features/admin/service/admin_service.dart';
-import 'package:ecommerce/src/shared/model/category_model.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'package:ecommerce/src/shared/model/category_model.dart';
+import 'package:ecommerce/src/shared/service/common_service.dart';
+
 class ViewCategoresScreen extends StatefulWidget {
+  final bool isBrand;
   final Function()? callBack;
-  const ViewCategoresScreen({super.key, this.callBack});
+
+  const ViewCategoresScreen({
+    super.key,
+    this.callBack,
+    this.isBrand = false,
+  });
 
   @override
   State<ViewCategoresScreen> createState() => _ViewCategoresScreenState();
@@ -24,7 +32,9 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
 
   Future<void> fetchData() async {
     setState(() => isLoading = true);
-    categoriesList = await AdminService.instance.fetchAllCategories();
+    categoriesList = await CommonService.instance.fetchAllCategoriesOrBrands(
+      widget.isBrand,
+    );
     setState(() => isLoading = false);
   }
 
@@ -32,7 +42,7 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Categories'),
+        title: Text(widget.isBrand ? 'Brands' : 'Categories'),
         actions: [
           const SizedBox(width: 20),
           IconButton(
