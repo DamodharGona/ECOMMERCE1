@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:ecommerce/src/core/model/firebase_response_model.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
-import 'package:ecommerce/src/shared/model/category_model.dart';
 import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:ecommerce/src/shared/model/user_model.dart';
-import 'package:flutter/foundation.dart';
 
 class AdminService {
   AdminService._privateConstructor();
@@ -16,6 +17,7 @@ class AdminService {
     required String ref,
     required String collectionName,
     required String categoryName,
+    String categoryId = '',
     required File file,
   }) async {
     try {
@@ -29,28 +31,13 @@ class AdminService {
         data: {
           "name": categoryName,
           "imageUrl": imageUrl,
+          if (categoryId.isNotEmpty) "categoryId": categoryId,
           "createdAt": Timestamp.now(),
           "updatedAt": Timestamp.now(),
         },
       );
     } catch (e) {
       throw Exception('Error saving to collection: $e');
-    }
-  }
-
-  Future<List<CategoryModel>> fetchAllCategories() async {
-    try {
-      ApiResponse<List<CategoryModel>> categories = await FirebaseService
-          .instance
-          .getAllDocuments<List<CategoryModel>, CategoryModel>(
-        collection: 'categories',
-        tFromJson: CategoryModel.fromJson,
-        isList: true,
-      );
-
-      return categories.data;
-    } catch (e) {
-      return <CategoryModel>[];
     }
   }
 

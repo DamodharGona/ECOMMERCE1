@@ -10,6 +10,7 @@ class ProductModel {
   final List<String> imageUrls;
   final bool isOutOfStock;
   final double discountPercent;
+  final String brandId;
 
   const ProductModel({
     this.id = '',
@@ -21,6 +22,7 @@ class ProductModel {
     this.description = '',
     this.specifications = const <String>[],
     this.imageUrls = const <String>[],
+    this.brandId = '',
     this.isOutOfStock = false,
     this.discountPercent = 0,
   });
@@ -37,6 +39,7 @@ class ProductModel {
       'imageUrls': imageUrls,
       'isOutOfStock': isOutOfStock,
       'discountPercent': discountPercent,
+      'brandId': brandId,
     };
   }
 
@@ -57,6 +60,7 @@ class ProductModel {
           : const <String>[],
       isOutOfStock: map['isOutOfStock'] ?? false,
       discountPercent: map['discountPercent'] ?? 0,
+      brandId: map['brandId'] ?? '',
     );
   }
 }

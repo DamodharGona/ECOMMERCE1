@@ -88,6 +88,11 @@ class _MerchantProductScreenState extends State<MerchantProductScreen> {
                 itemBuilder: (context, index) {
                   final product = productsListCopy[index];
                   return ListTile(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      RouteConstants.viewProductScreenRoute,
+                      arguments: product,
+                    ),
                     contentPadding: EdgeInsets.zero,
                     leading: Image.network(
                       product.imageUrls.first,

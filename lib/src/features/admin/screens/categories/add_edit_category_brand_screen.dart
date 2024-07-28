@@ -1,25 +1,50 @@
 import 'dart:io';
 
-import 'package:dotted_border/dotted_border.dart';
-import 'package:ecommerce/src/core/utils/utils.dart';
-import 'package:ecommerce/src/features/admin/service/admin_service.dart';
 import 'package:flutter/material.dart';
 
-class AddEditCategoryScreen extends StatefulWidget {
-  const AddEditCategoryScreen({super.key});
+import 'package:dotted_border/dotted_border.dart';
+
+import 'package:ecommerce/src/core/utils/utils.dart';
+import 'package:ecommerce/src/features/admin/service/admin_service.dart';
+import 'package:ecommerce/src/shared/model/category_model.dart';
+import 'package:ecommerce/src/shared/widgets/pickimage_preview_widget.dart';
+import 'package:ecommerce/src/shared/widgets/select_category_bottomsheet.dart';
+
+class AddEditCategoryOrBrandScreen extends StatefulWidget {
+  final bool isBrand;
+  const AddEditCategoryOrBrandScreen({super.key, this.isBrand = false});
 
   @override
-  State<AddEditCategoryScreen> createState() => _AddEditCategoryScreenState();
+  State<AddEditCategoryOrBrandScreen> createState() =>
+      _AddEditCategoryOrBrandScreenState();
 }
 
-class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
+class _AddEditCategoryOrBrandScreenState
+    extends State<AddEditCategoryOrBrandScreen> {
   TextEditingController nameController = TextEditingController();
   File? file;
   bool isLoading = false;
+  CategoryModel selectedCategory = const CategoryModel();
 
   void uploadFile() async {
     file = await pickImageFromGallery(context);
     setState(() {});
+  }
+
+  void openBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      scrollControlDisabledMaxHeightRatio: 1,
+      useRootNavigator: true,
+      builder: (context) {
+        return SizedBox(
+          height: MediaQuery.sizeOf(context).height * 0.94,
+          child: SelectCategoryBottomsheet(
+            onSelect: (category) => setState(() => selectedCategory = category),
+          ),
+        );
+      },
+    );
   }
 
   void uploadImageToCloud() async {
@@ -29,17 +54,20 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
       try {
         setState(() => isLoading = true);
         await AdminService.instance.saveToCollection(
-          collectionName: 'categories',
+          collectionName: widget.isBrand ? 'brands' : 'categories',
           categoryName: nameController.text,
+          categoryId: selectedCategory.id,
           file: file!,
-          ref: 'categories/${nameController.text.trim().toLowerCase()}',
+          ref:
+              '${widget.isBrand ? 'brands/' : 'categories'}/${nameController.text.trim().toLowerCase()}',
         );
         setState(() => isLoading = false);
 
         if (mounted) {
           showSnackBar(
             context: context,
-            content: 'Category Created Successfully',
+            content:
+                '${widget.isBrand ? 'brand' : 'category'} Created Successfully',
           );
           Navigator.pop(context);
         }
@@ -81,10 +109,10 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
             const Text('Name'),
             TextFormField(
               controller: nameController,
-              decoration: const InputDecoration(
-                hintText: 'Enter Category Name',
-                hintStyle: TextStyle(fontSize: 32),
-                contentPadding: EdgeInsets.only(top: 10, bottom: 10),
+              decoration: InputDecoration(
+                hintText: 'Enter ${widget.isBrand ? 'Brand' : 'Category'} Name',
+                hintStyle: const TextStyle(fontSize: 32),
+                contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
@@ -93,7 +121,23 @@ class _AddEditCategoryScreenState extends State<AddEditCategoryScreen> {
               autocorrect: false,
               enableSuggestions: false,
             ),
-            const Text('Upload Image'),
+            Visibility(
+              visible: widget.isBrand,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  const Text('Upload Image'),
+                  const SizedBox(height: 20),
+                  PickimagePreviewWidget(
+                    imageUrl: selectedCategory.imageUrl,
+                    name: selectedCategory.name,
+                    placeholderText: 'Select Category',
+                    bottomSheet: openBottomSheet,
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 20),
             GestureDetector(
               onTap: uploadFile,
