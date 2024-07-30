@@ -5,7 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ecommerce/src/core/model/firebase_response_model.dart';
+import 'package:ecommerce/src/core/service/common_service.dart';
 import 'package:ecommerce/src/core/service/firebase_service.dart';
+import 'package:ecommerce/src/shared/model/brand_model.dart';
+import 'package:ecommerce/src/shared/model/category_model.dart';
 import 'package:ecommerce/src/shared/model/merchant_model.dart';
 import 'package:ecommerce/src/shared/model/user_model.dart';
 
@@ -155,6 +158,79 @@ class AdminService {
       if (kDebugMode) {
         print('Error approveOrReject shops: $e');
       }
+    }
+  }
+
+  Future<List<CategoryModel>> fetchDemoCategoiesData() async {
+    try {
+      final data = await CommonService.instance
+          .loadJsonFromAssets<List<CategoryModel>, CategoryModel>(
+        path: 'assets/json/categories.json',
+        tFromJson: CategoryModel.fromJson,
+        isList: true,
+      );
+
+      return data;
+    } catch (e) {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
+  Future<List<BrandModel>> fetchDemoBrandsData() async {
+    try {
+      final data = await CommonService.instance
+          .loadJsonFromAssets<List<BrandModel>, BrandModel>(
+        path: 'assets/json/brands.json',
+        tFromJson: BrandModel.fromJson,
+        isList: true,
+      );
+
+      return data;
+    } catch (e) {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
+  Future<void> uploadData({bool isCategories = false}) async {
+    try {
+      List<CategoryModel> categories = [];
+      List<BrandModel> brands = [];
+
+      if (isCategories) {
+        categories = await CommonService.instance
+            .loadJsonFromAssets<List<CategoryModel>, CategoryModel>(
+          path: 'assets/json/categories.json',
+          tFromJson: CategoryModel.fromJson,
+          isList: true,
+        );
+
+        for (final category in categories) {
+          await FirebaseService.instance.addDocument(
+            collection: 'categories',
+            documentId: category.id,
+            data: category.toJson(),
+          );
+        }
+      } else {
+        brands = await CommonService.instance
+            .loadJsonFromAssets<List<BrandModel>, BrandModel>(
+          path: 'assets/json/brands.json',
+          tFromJson: BrandModel.fromJson,
+          isList: true,
+        );
+
+        for (final brand in brands) {
+          await FirebaseService.instance.addDocument(
+            collection: 'brands',
+            documentId: brand.id,
+            data: brand.toJson(),
+          );
+        }
+      }
+    } catch (e) {
+      throw Exception(
+        'Failed to upload ${isCategories ? 'Categories' : 'Brands'}',
+      );
     }
   }
 }

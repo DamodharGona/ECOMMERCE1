@@ -88,7 +88,7 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
               )
             : GridView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: categoriesList.length,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 150,
@@ -107,7 +107,7 @@ class _ViewCategoresScreenState extends State<ViewCategoresScreen> {
                           imageUrl: category.imageUrl,
                           height: 75,
                           width: 75,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                       const SizedBox(height: 8),

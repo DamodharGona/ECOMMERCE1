@@ -21,9 +21,9 @@ class CategoryModel extends Equatable {
 
   factory CategoryModel.fromJson(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      imageUrl: map['imageUrl'] as String,
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
     );
   }
 

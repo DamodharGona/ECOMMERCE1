@@ -1,0 +1,202 @@
+{
+    "data": [
+        {
+            "id": "BRAND001",
+            "name": "Voltas",
+            "imageUrl": "https://i.pinimg.com/736x/bb/08/0e/bb080e4e0f6588240fdb0f5e1b57d2ca.jpg",
+            "categories": ["CAT003"]
+        },
+        {
+            "id": "BRAND002",
+            "name": "LG",
+            "imageUrl": "https://w7.pngwing.com/pngs/621/972/png-transparent-lg-logo-lg-logo-television-text-trademark.png",
+            "categories": ["CAT003", "CAT004", "CAT006"]
+        },
+        {
+            "id": "BRAND003",
+            "name": "Samsung",
+            "imageUrl": "https://www.pngfind.com/pngs/m/530-5309308_samsung-logo-70kb-samsung-india-logo-png-transparent.png",
+            "categories": ["CAT003", "CAT004", "CAT001", "CAT005", "CAT006"]
+        },
+        {
+            "id": "BRAND004",
+            "name": "Daikin",
+            "imageUrl": "https://1000logos.net/wp-content/uploads/2020/08/Daikin-Logo.png",
+            "categories": ["CAT003"]
+        },
+        {
+            "id": "BRAND005",
+            "name": "Panasonic",
+            "imageUrl": "https://logolook.net/wp-content/uploads/2022/08/Panasonic-Logo.png",
+            "categories": ["CAT003"]
+        },
+        {
+            "id": "BRAND006",
+            "name": "Blue Star",
+            "imageUrl": "https://logovtor.com/wp-content/uploads/2020/01/blue-star-limited-logo-vector.png",
+            "categories": ["CAT003"]
+        },
+        {
+            "id": "BRAND007",
+            "name": "Lloyd",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbWAYo6jbWk1JfauY6CGwzCpUfYHyYdbWJ6Q&s",
+            "categories": ["CAT003"]
+        },
+        {
+            "id": "BRAND008",
+            "name": "Hisense",
+            "imageUrl": "https://1000logos.net/wp-content/uploads/2018/08/Hisense-Logo.png",
+            "categories": ["CAT004", "CAT003"]
+        },
+        {
+            "id": "BRAND009",
+            "name": "Motorola",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Motorola_M_symbol_blue.svg/2048px-Motorola_M_symbol_blue.svg.png",
+            "categories": ["CAT004", "CAT001"]
+        },
+        {
+            "id": "BRAND010",
+            "name": "Nokia",
+            "imageUrl": "https://www.nokia.com/sites/default/files/styles/scale_720_not_convert_webp/public/2023-02/nokia-refreshed-logo-2_1.png",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND011",
+            "name": "Realme",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3qA2q06CGBiyE0j7cCg5lWlIRmENV_p6P7Q&s",
+            "categories": ["CAT004", "CAT001", "CAT005"]
+        },
+        {
+            "id": "BRAND012",
+            "name": "Oneplus",
+            "imageUrl": "https://e7.pngegg.com/pngimages/815/372/png-clipart-oneplus-6-oneplus-5t-oneplus-2-oneplus-one-text-trademark-thumbnail.png",
+            "categories": ["CAT004", "CAT001", "CAT005"]
+        },
+        {
+            "id": "BRAND013",
+            "name": "Apple",
+            "imageUrl": "https://logos-marques.com/wp-content/uploads/2021/03/Apple-Icone.png",
+            "categories": ["CAT005", "CAT001", "CAT002"]
+        },
+        {
+            "id": "BRAND014",
+            "name": "Nothing",
+            "imageUrl": "https://www.fontmirror.com/app_public/files/t/1/featured_image/2022/12/featured_12563.jpg",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND015",
+            "name": "Oppo",
+            "imageUrl": "https://download.logo.wine/logo/Oppo/Oppo-Logo.wine.png",
+            "categories": ["CAT001", "CAT004"]
+        },
+        {
+            "id": "BRAND016",
+            "name": "Vivo",
+            "imageUrl": "https://logos-world.net/wp-content/uploads/2023/03/Vivo-Logo.png",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND017",
+            "name": "Mi",
+            "imageUrl": "https://logos-world.net/wp-content/uploads/2020/07/Xiaomi-Logo-2014-2021.png",
+            "categories": ["CAT001", "CAT004"]
+        },
+        {
+            "id": "BRAND018",
+            "name": "Redmi",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEe3giQU4npoM4krb-_V-iBzmDVoGHiBUE2Q&s",
+            "categories": ["CAT001", "CAT004", "CAT005"]
+        },
+        {
+            "id": "BRAND019",
+            "name": "Xiaomi",
+            "imageUrl": "https://logos-world.net/wp-content/uploads/2020/07/Xiaomi-Logo-2014-2021.png",
+            "categories": ["CAT001", "CAT004"]
+        },
+        {
+            "id": "BRAND020",
+            "name": "Infinix",
+            "imageUrl": "https://static.vecteezy.com/system/resources/previews/020/927/489/non_2x/infinix-brand-logo-phone-symbol-name-black-design-china-mobile-illustration-free-vector.jpg",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND021",
+            "name": "Lava",
+            "imageUrl": "https://static.vecteezy.com/system/resources/previews/020/927/184/original/lava-brand-logo-phone-symbol-name-black-design-india-mobile-illustration-free-vector.jpg",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND022",
+            "name": "Google",
+            "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQanliWEyEA7ljmQtQZV3_sMiwcY2B17yCndA&s",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND023",
+            "name": "IQOO",
+            "imageUrl": "https://www.myfixguide.com/wp-content/uploads/2022/06/iQOO-Logo.jpg",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND024",
+            "name": "Sony",
+            "imageUrl": "https://1000logos.net/wp-content/uploads/2017/06/Symbol-Sony.jpg",
+            "categories": ["CAT001", "CAT004"]
+        },
+        {
+            "id": "BRAND025",
+            "name": "Jio",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Reliance_Jio_Logo_%28October_2015%29.svg/2048px-Reliance_Jio_Logo_%28October_2015%29.svg.png",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND026",
+            "name": "Micromax",
+            "imageUrl": "https://1000logos.net/wp-content/uploads/2019/12/Micromax-Logo.jpg",
+            "categories": ["CAT001"]
+        },
+        {
+            "id": "BRAND027",
+            "name": "TCL",
+            "imageUrl": "https://logowik.com/content/uploads/images/tcl5707.logowik.com.webp",
+            "categories": ["CAT004"]
+        },
+        {
+            "id": "BRAND028",
+            "name": "Acer",
+            "imageUrl": "https://1000logos.net/wp-content/uploads/2016/09/Acer-Logo.png",
+            "categories": ["CAT001", "CAT002", "CAT004"]
+        },
+        {
+            "id": "BRAND029",
+            "name": "Dell",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/1024px-Dell_Logo.svg.png",
+            "categories": ["CAT002"]
+        },
+        {
+            "id": "BRAND030",
+            "name": "ASUS",
+            "imageUrl": "https://logos-world.net/wp-content/uploads/2020/07/Asus-Logo.png",
+            "categories": ["CAT002"]
+        },
+        {
+            "id": "BRAND031",
+            "name": "Lenovo",
+            "imageUrl": "https://w7.pngwing.com/pngs/631/322/png-transparent-lenovo-logo-laptop-lenovo-thinkpad-thinkpad-x1-carbon-intel-dell-lenovo-logo-electronics-text-rectangle.png",
+            "categories": ["CAT002"]
+        },
+        {
+            "id": "BRAND032",
+            "name": "MSI",
+            "imageUrl": "https://1000logos.net/wp-content/uploads/2018/10/MSI-Logo.jpg",
+            "categories": ["CAT002"]
+        },
+        {
+            "id": "BRAND033",
+            "name": "Microsoft",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/1024px-Microsoft_logo.svg.png",
+            "categories": ["CAT002"]
+        }
+    ]
+}

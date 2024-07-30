@@ -5,6 +5,7 @@ import 'package:ecommerce/src/features/admin/screens/auth/admin_login_screen.dar
 import 'package:ecommerce/src/features/admin/screens/categories/add_edit_category_brand_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/categories/view_categores_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/dashboard/admin_dashboard_screen.dart';
+import 'package:ecommerce/src/features/admin/screens/demo/categories.dart';
 import 'package:ecommerce/src/features/admin/screens/merchant_shops/shops_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_merchant_screen.dart';
 import 'package:ecommerce/src/features/admin/screens/users_and_merchants/view_all_users_screen.dart';

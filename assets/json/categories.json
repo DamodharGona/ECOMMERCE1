@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "id": "CAT001",
+            "name": "Mobiles",
+            "imageUrl": "https://rukminim2.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100"
+        },
+        {
+            "id": "CAT002",
+            "name": "Laptops",
+            "imageUrl": "https://rukminim2.flixcart.com/image/312/312/xif0q/computer/i/x/n/-original-imagt8bbf6qgeaha.jpeg?q=70"
+        },
+        {
+            "id": "CAT003",
+            "name": "Ac's",
+            "imageUrl": "https://rukminim2.flixcart.com/fk-p-flap/50/50/image/a1415b02c276b1f3.jpg?q=50"
+        },
+        {
+            "id": "CAT004",
+            "name": "Tv's",
+            "imageUrl": "https://rukminim2.flixcart.com/image/312/312/xif0q/television/t/y/a/-original-imagsjjggzcddywc.jpeg?q=70"
+        },
+        {
+            "id": "CAT005",
+            "name": "Tablets",
+            "imageUrl": "https://rukminim2.flixcart.com/image/312/312/xif0q/tablet/8/i/q/-original-imaguyffv34ghmky.jpeg?q=70"
+        },
+        {
+            "id": "CAT006",
+            "name": "Washing Machines",
+            "imageUrl": "https://rukminim2.flixcart.com/image/312/312/xif0q/washing-machine-new/m/r/e/-original-imagx7qmg7cmycjr.jpeg?q=70"
+        }
+    ]
+}

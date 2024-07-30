@@ -24,9 +24,13 @@ class RouteConstants {
   static const String adminDashboardScreenRoute = '/adminDashboardScreenRoute';
   static const String addOrEditCategoryScreenRoute =
       '/addOrEditCategoryScreenRoute';
+  static const String addOrEditBrandsScreenRoute =
+      '/addOrEditBrandsScreenRoute';
   static const String viewCategoresScreenRoute = '/viewCategoresScreenRoute';
+  static const String viewBrandsScreenRoute = '/viewBrandsScreenRoute';
   static const String viewAllUsersScreenRoute = '/viewAllUsersScreenRoute';
   static const String viewAllMerchantsScreenRoute =
       '/viewAllMerchantsScreenRoute';
   static const String shopsScreenRoute = '/shopsScreenRoute';
+  static const String pendingShopsScreenRoute = '/pendingShopsScreenRoute';
 }

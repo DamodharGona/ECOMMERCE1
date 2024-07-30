@@ -54,6 +54,7 @@ class MerchantService {
     required double discountPercent,
     required bool isOutOfStock,
     required String categoryId,
+    required String brandId,
   }) async {
     try {
       final merchantData = await AppSharedPrefs.instance.getMerchantData();
@@ -81,6 +82,7 @@ class MerchantService {
         name: name,
         price: price,
         specifications: specifications,
+        brandId: brandId,
       );
 
       await FirebaseService.instance.addDocument(
