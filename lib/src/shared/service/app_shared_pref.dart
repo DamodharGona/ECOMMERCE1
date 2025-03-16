@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:ecommerce/src/shared/model/merchant_model.dart';
-import 'package:secure_shared_preferences/secure_shared_pref.dart';
 import 'package:ecommerce/src/core/utils/constants/local_data_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSharedPrefs {
-  static late SecureSharedPref _preferences;
+  static late SharedPreferences _preferences;
 
   // Singleton instance
   AppSharedPrefs._privateConstructor();
@@ -14,11 +16,11 @@ class AppSharedPrefs {
 
   // Initialize the shared preferences
   static Future<void> init() async {
-    _preferences = await SecureSharedPref.getInstance();
+    _preferences = await SharedPreferences.getInstance();
   }
 
   Future<void> clearAllSharedPrefs() async {
-    await _preferences.clearAll();
+    await _preferences.clear();
   }
 
   // Get current user
@@ -26,7 +28,6 @@ class AppSharedPrefs {
     try {
       String? response = await _preferences.getString(
         LocalDataConstants.currentUser,
-        isEncrypted: enableEncryption,
       );
       return response ?? '';
     } catch (e) {
@@ -36,10 +37,9 @@ class AppSharedPrefs {
 
   // Set current user
   void setCurrentUser(String user) {
-    _preferences.putString(
+    _preferences.setString(
       LocalDataConstants.currentUser,
       user,
-      isEncrypted: enableEncryption,
     );
   }
 
@@ -48,7 +48,6 @@ class AppSharedPrefs {
     try {
       bool? response = await _preferences.getBool(
         LocalDataConstants.shopApprovalStatus,
-        isEncrypted: enableEncryption,
       );
       return response;
     } catch (e) {
@@ -58,22 +57,20 @@ class AppSharedPrefs {
 
   // Set merchant approval status
   void setMerchantApprovalStatus({required bool status}) {
-    _preferences.putBool(
+    _preferences.setBool(
       LocalDataConstants.shopApprovalStatus,
       status,
-      isEncrypted: enableEncryption,
     );
   }
 
   // Get Merchant Data
   Future<MerchantModel> getMerchantData() async {
     try {
-      Map<dynamic, dynamic>? response = await _preferences.getMap(
+      String? response =  _preferences.getString(
         LocalDataConstants.merchantData,
-        isEncrypted: enableEncryption,
       );
 
-      return MerchantModel.fromJson(response as Map<String, dynamic>);
+      return MerchantModel.fromJson(json.decode(response!));
     } catch (e) {
       return const MerchantModel();
     }
@@ -81,10 +78,9 @@ class AppSharedPrefs {
 
   // Set merchant approval status
   void setMerchantData({required MerchantModel merchantModel}) {
-    _preferences.putMap(
+    _preferences.setString(
       LocalDataConstants.merchantData,
-      merchantModel.toSharedPrefJson(),
-      isEncrypted: enableEncryption,
+      merchantModel.toSharedPrefJson().toString(),
     );
   }
 }
